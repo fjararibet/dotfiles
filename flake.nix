@@ -122,6 +122,9 @@
         huala = mkHost {
           hostname = "huala";
         };
+        pudu = mkHost {
+          hostname = "pudu";
+        };
       };
 
       homeManagerModules.default = ./home/common.nix;
@@ -136,6 +139,9 @@
         };
         huala = mkHomeConfig {
           modules = [ ./hosts/huala/home.nix ];
+        };
+        pudu = mkHomeConfig {
+          modules = [ ./hosts/pudu/home.nix ];
         };
       };
     };

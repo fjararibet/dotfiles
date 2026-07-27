@@ -11,7 +11,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.supportedFilesystems.zfs = true;
 
-  boot.zfs.extraPools = [ "zpool" ];
+  # boot.zfs.extraPools = [ "zpool" ];
   networking.hostName = "pudu";
   networking.hostId = "41c929f8";
   networking.networkmanager.enable = true;
