@@ -34,6 +34,9 @@
     enable = true;
     envExtra = ''
       ZSH_DISABLE_COMPFIX="true"
+      if [[ -o interactive ]]; then
+        alias compinit='compinit -C'
+      fi
     '';
     initContent = builtins.readFile (paths.config + "/zsh/dot-zshrc.zsh");
     oh-my-zsh = {
