@@ -14,7 +14,6 @@
     git
     nil
     zip
-    tmux
     tree
     tree
     lsof
@@ -26,6 +25,7 @@
     ripgrep
     tree-sitter
     wl-clipboard
+    unstable.tmux
     unstable.codex
     unstable.opencode
     unstable.claude-code

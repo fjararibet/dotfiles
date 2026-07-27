@@ -1,5 +1,5 @@
 return {
-  'nvim-telescope/telescope.nvim', version = 'v0.2.1',
+  'nvim-telescope/telescope.nvim',
   dependencies = {
     'nvim-lua/plenary.nvim',
     'nvim-telescope/telescope-fzf-native.nvim',
@@ -21,7 +21,7 @@ return {
       },
     }
 
-    -- Enable telescope fzf native, if installed
+    -- Enable the native FZF sorter.
     pcall(require('telescope').load_extension, 'fzf')
 
     vim.keymap.set('n', '<leader>/', function()

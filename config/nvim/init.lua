@@ -48,11 +48,7 @@ for _, name in ipairs {
   end
 end
 
-require('lazy').setup(specs, {
-  change_detection = {
-    notify = false,
-  },
-})
+require('lazy').setup(specs)
 
 vim.cmd.colorscheme 'kanagawa'
 
