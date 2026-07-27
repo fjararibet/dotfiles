@@ -1,6 +1,13 @@
 { config, pkgs, ... }: 
 
 {
+  users.users.fjara = {
+    isNormalUser = true;
+    extraGroups = [ "wheel" "audio" "dialout" ];
+    shell = pkgs.zsh;
+    packages = [];
+  };
+
   nix.settings.auto-optimise-store = true;
   nixpkgs.config.allowUnfree = true;
   nix.gc = {
@@ -45,11 +52,4 @@
       PasswordAuthentication = true;
     };
   };
-
-  # programs.ssh = {
-  #   startAgent = true;
-  #   extraConfig = ''
-  #     AddKeysToAgent yes
-  #   '';
-  # };
 }
