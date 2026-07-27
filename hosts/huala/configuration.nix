@@ -44,13 +44,6 @@ in
     };
   };
 
-  users.users.fjara = {
-    isNormalUser = true;
-    extraGroups = [ "wheel" "audio" "dialout" ];
-    shell = pkgs.zsh;
-    packages = [];
-  };
-
   environment.systemPackages = with pkgs; [
     vim
     wget

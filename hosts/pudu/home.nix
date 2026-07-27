@@ -5,4 +5,3 @@
     (paths.home + "/common.nix")
   ];
 }
-

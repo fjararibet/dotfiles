@@ -35,10 +35,8 @@
     enable = true;
   };
   users.users.fjara = {
-      isNormalUser = true;
       uid = 1002;
       extraGroups = [ "wheel" "docker" "dialout" ];
-      shell = pkgs.zsh;
   };
   environment.systemPackages = with pkgs; [
     vim

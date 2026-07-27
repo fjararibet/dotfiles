@@ -8,7 +8,7 @@ local plugins = require 'config.nix-plugins'
 vim.opt.rtp:prepend(plugins['folke/lazy.nvim'])
 
 local function is_plugin(spec)
-  return type(spec) == 'table' and type(spec[1]) == 'string'
+  return type(spec) == 'table' and #spec == 1 and type(spec[1]) == 'string'
 end
 
 local function use_nix_store(spec)
@@ -48,7 +48,11 @@ for _, name in ipairs {
   end
 end
 
-require('lazy').setup(specs)
+require('lazy').setup(specs, {
+  install = { missing = false },
+  pkg = { enabled = false },
+  rocks = { enabled = false },
+})
 
 vim.cmd.colorscheme 'kanagawa'
 
