@@ -35,6 +35,7 @@ let
     "nvim-tree/nvim-web-devicons" = nvim-web-devicons;
     "mbbill/undotree" = undotree;
     "lewis6991/gitsigns.nvim" = gitsigns-nvim;
+    "sindrets/diffview.nvim" = diffview-nvim;
     "nvim-telescope/telescope.nvim" = telescope-nvim;
     "nvim-lua/plenary.nvim" = plenary-nvim;
     "nvim-telescope/telescope-fzf-native.nvim" = telescope-fzf-native-nvim;

@@ -1,0 +1,13 @@
+set nocompatible
+set relativenumber
+
+" Whitespace
+set expandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+
+" Colorscheme
+syntax on
+set background=dark
+colorscheme catppuccin

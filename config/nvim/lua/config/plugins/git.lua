@@ -22,4 +22,9 @@ return {
       end,
     },
   },
+
+  {
+    -- Single tabpage interface for cycling through git diffs and file history
+    'sindrets/diffview.nvim',
+  },
 }
