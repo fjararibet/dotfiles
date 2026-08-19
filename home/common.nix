@@ -79,4 +79,5 @@
   xdg.configFile.clangd.source = paths.config + "/clangd";
   xdg.configFile.tmux.source = paths.config + "/tmux";
   xdg.configFile.git.source = paths.config + "/git";
+  xdg.configFile.vim.source = paths.config + "/vim";
 }
