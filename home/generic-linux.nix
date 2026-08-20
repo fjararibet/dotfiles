@@ -48,6 +48,18 @@ in
   # what emits the ~/.profile the bootstrap sources.
   programs.bash.enable = true;
 
+  # logind starts the systemd user manager before our bootstrap runs, so it
+  # derives its unit search path from the passwd home and never sees the units
+  # written here. Atuin works fine without the daemon; it is a latency
+  # optimisation. daemon-fuzzy requires it, so drop back to plain fuzzy.
+  programs.atuin = {
+    daemon.enable = lib.mkForce false;
+    settings = {
+      daemon.enabled = lib.mkForce false;
+      search_mode = lib.mkForce "fuzzy";
+    };
+  };
+
   home.activation.loginHomeBootstrap = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     loginHome=$(${pkgs.getent}/bin/getent passwd "$(id -un)" | cut -d: -f6)
 
