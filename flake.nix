@@ -132,7 +132,10 @@
 
       homeConfigurations = {
         fjara = mkHomeConfig {
-          modules = [ ./home/common.nix ];
+          modules = [
+            ./home/common.nix
+            { targets.genericLinux.enable = true; }
+          ];
         };
         yunco = mkHomeConfig {
           modules = [ ./hosts/yunco/home.nix ];
