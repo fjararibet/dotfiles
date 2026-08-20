@@ -25,6 +25,7 @@
     ripgrep
     tree-sitter
     wl-clipboard
+    vim-full
     unstable.tmux
     unstable.codex
     unstable.opencode
