@@ -36,6 +36,14 @@ in
 {
   targets.genericLinux.enable = true;
 
+  # The first build still needs --extra-experimental-features on the command
+  # line; this keeps it enabled for every invocation after that. Written
+  # directly rather than via nix.settings, which would pull a second Nix into
+  # the profile and risk clashing with a root-managed daemon.
+  xdg.configFile."nix/nix.conf".text = ''
+    experimental-features = nix-command flakes
+  '';
+
   # Not the interactive shell, but it is what the login shell reads, and it is
   # what emits the ~/.profile the bootstrap sources.
   programs.bash.enable = true;
