@@ -44,7 +44,10 @@
       enable = true;
       plugins = [ "git" ];
       theme = "theme";
-      custom = toString (paths.config + "/zsh");
+      # Interpolate rather than toString: toString yields the path as a bare
+      # string with no build input declared, so Nix registers no reference and
+      # nothing keeps the themes alive across a garbage collect.
+      custom = "${paths.config + "/zsh"}";
     };
   };
 
