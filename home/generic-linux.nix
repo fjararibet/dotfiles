@@ -36,6 +36,12 @@ in
 {
   targets.genericLinux.enable = true;
 
+  # Without root we cannot chsh, so login leaves SHELL pointing at the passwd
+  # shell. tmux picks default-shell from SHELL first, then getpwuid, so new
+  # panes would come up as login bash. Anything else reading SHELL — editors
+  # opening a terminal, `git`'s pager setup — was getting bash too.
+  home.sessionVariables.SHELL = "${config.programs.zsh.package}/bin/zsh";
+
   # The first build still needs --extra-experimental-features on the command
   # line; this keeps it enabled for every invocation after that. Written
   # directly rather than via nix.settings, which would pull a second Nix into
