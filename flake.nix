@@ -125,6 +125,9 @@
         pudu = mkHost {
           hostname = "pudu";
         };
+        fragata = mkHost {
+          hostname = "fragata";
+        };
       };
 
       homeManagerModules.default = ./home/common.nix;
@@ -145,6 +148,9 @@
         };
         pudu = mkHomeConfig {
           modules = [ ./hosts/pudu/home.nix ];
+        };
+        fragata = mkHomeConfig {
+          modules = [ ./hosts/fragata/home.nix ];
         };
       };
     };
