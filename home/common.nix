@@ -73,6 +73,8 @@
     EDITOR = "nvim";
   };
 
+  home.file.".vimrc".source = paths.config + "/vim/vimrc";
+
   xdg.configFile.clangd.source = paths.config + "/clangd";
   xdg.configFile.tmux.source = paths.config + "/tmux";
   xdg.configFile.git.source = paths.config + "/git";
