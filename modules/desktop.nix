@@ -110,4 +110,8 @@ in {
       export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
     fi
   '';
+
+  services.desktopManager.gnome.enable = true;
+  services.gnome.games.enable = false;
+  environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
 }
