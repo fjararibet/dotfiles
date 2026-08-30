@@ -105,11 +105,11 @@ in {
 
   # GCR provides the SSH agent used for Git SSH signing, but Sway does not
   # inherit the socket path from the systemd user manager.
-  environment.extraInit = lib.mkAfter ''
+  environment.extraInit = lib.mkIf config.services.gnome.gcr-ssh-agent.enable (lib.mkAfter ''
     if [ -z "$SSH_AUTH_SOCK" ] && [ -n "$XDG_RUNTIME_DIR" ]; then
       export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
     fi
-  '';
+  '');
 
   services.desktopManager.gnome.enable = true;
   services.gnome.games.enable = false;

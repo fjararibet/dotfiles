@@ -32,6 +32,11 @@
 
   users.users.fjara.extraGroups = [ "networkmanager" ];
 
+  # gcr-ssh-agent 4.4.0.1 loops in ssh-add when loading an ED25519 key.
+  # Keep GNOME Keyring for secrets, but use OpenSSH's agent on this host.
+  services.gnome.gcr-ssh-agent.enable = false;
+  programs.ssh.startAgent = true;
+
   # Needed for Sway on this laptop's NVIDIA GPU.
   programs.sway = {
     extraOptions = [ "--unsupported-gpu" ];
