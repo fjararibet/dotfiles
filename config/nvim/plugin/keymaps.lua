@@ -16,6 +16,8 @@ vim.keymap.set('v', "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', "K", ":m '<-2<CR>gv=gv")
 vim.keymap.set('n', '<leader>x', "<cmd>!chmod +x %<CR>", { silent = true, desc = 'Make file e[x]ecutable' })
 vim.api.nvim_create_user_command('W', 'w', { nargs = 0 })
+vim.api.nvim_create_user_command('Wq', 'wq', { nargs = 0 })
+vim.api.nvim_create_user_command('WQ', 'wq', { nargs = 0 })
 vim.api.nvim_create_user_command('Q', 'q', { nargs = 0 })
 
 
