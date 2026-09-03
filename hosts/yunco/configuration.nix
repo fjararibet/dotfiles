@@ -50,6 +50,13 @@
   wsl.wslConf.network.generateResolvConf = false;
   wsl.wslConf.network.hostname = "yunco";
 
+  # No Windows interop at all: no /mnt/c mounts, no running .exe, no inherited
+  # Windows PATH. Port forwarding (localhost:PORT from Windows) is unaffected --
+  # that's WSL networking, configured in .wslconfig on the Windows side.
+  wsl.wslConf.automount.enabled = false;
+  wsl.wslConf.interop.enabled = false;
+  wsl.wslConf.interop.appendWindowsPath = false;
+
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
