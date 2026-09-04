@@ -22,6 +22,10 @@ set $menu nc -U /run/user/1000/walker/walker.sock
 output * bg ~/dotfiles/wallpapers/city_night.jpg fill
 exec gammastep -O 6500K -g 0.7 -l 0:0
 
+# NixOS' shutdown subscription can exit unsuccessfully when Sway closes,
+# leaving sway-session.target active and preventing a later GNOME login.
+exec sh -c 'swaymsg -t subscribe '\''["shutdown"]'\''; systemctl --user stop sway-session.target'
+
 
 output HDMI-A-1 { 
     mode 1920x1080@143.999Hz 

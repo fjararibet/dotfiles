@@ -32,18 +32,10 @@ in {
     GTK_THEME = "Adwaita:dark";
     XCURSOR_THEME = "Adwaita";
     XCURSOR_SIZE = "24";
-    XDG_CURRENT_DESKTOP = "sway";
-    XDG_SESSION_DESKTOP = "sway";
     MOZ_ENABLE_WAYLAND = "1";
     NIXOS_OZONE_WL = "1";
     EDITOR = "nvim";
   };
-
-  # Ensure user services, including Discord launched by Walker, identify the
-  # session as Wayland and enable PipeWire-based screen sharing.
-  systemd.user.extraConfig = ''
-    DefaultEnvironment="XDG_SESSION_TYPE=wayland" "XDG_SESSION_DESKTOP=sway"
-  '';
 
   xdg.icons.fallbackCursorThemes = [ "Adwaita" ];
 
