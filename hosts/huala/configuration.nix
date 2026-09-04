@@ -19,15 +19,12 @@ in
     openFirewall = true;
   };
 
-  # Use the systemd-boot EFI boot loader.
+  # Boot NixOS directly; hold Space during startup to open the boot menu.
   boot.loader = {
-    systemd-boot.enable = false;
+    systemd-boot.enable = true;
+    timeout = 0;
     efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/boot";
-    grub.enable = true;
-    grub.device = "nodev";
-    grub.useOSProber = true;
-    grub.efiSupport = true;
   };
 
   networking.hostName = "huala";
