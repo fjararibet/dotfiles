@@ -27,6 +27,16 @@ in
     efi.efiSysMountPoint = "/boot";
   };
 
+  # Keep routine boot messages hidden while still showing failures.
+  boot.consoleLogLevel = 3;
+  boot.initrd.verbose = false;
+  boot.kernelParams = [
+    "quiet"
+    "udev.log_level=3"
+    "systemd.show_status=auto"
+    "rd.systemd.show_status=auto"
+  ];
+
   networking.hostName = "huala";
 
   programs.steam = {
