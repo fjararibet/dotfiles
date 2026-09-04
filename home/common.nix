@@ -36,6 +36,16 @@
   programs.zsh = {
     enable = true;
     envExtra = ''
+      # On the generic-linux host, the launcher/session manager may replace
+      # PATH after hm-session-vars.sh has been sourced.  Its exported guard is
+      # inherited by new tmux panes, so they otherwise skip restoring the Home
+      # Manager profile.  Keep the essential profile path idempotently present
+      # in every zsh, including non-login shells.
+      typeset -U path
+      path=("$HOME/.nix-profile/bin" $path)
+      export PATH
+      export SHELL="$HOME/.nix-profile/bin/zsh"
+
       ZSH_DISABLE_COMPFIX="true"
       if [[ -o interactive ]]; then
         alias compinit='compinit -C'
