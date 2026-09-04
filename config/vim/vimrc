@@ -1,14 +1,5 @@
-set nocompatible
-set relativenumber
-
-" Whitespace
-set expandtab
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set smartindent
-
-" Colorscheme
+set nocp rnu
+set et ts=4 sw=4 sts=4 si
 syntax on
-set background=dark
+set bg=dark
 colorscheme catppuccin
