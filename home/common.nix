@@ -28,9 +28,10 @@
     vim-full
     unstable.tmux
     unstable.codex
-    unstable.opencode
-    unstable.claude-code
     unstable.t3code
+    unstable.opencode
+    unstable.github-cli
+    unstable.claude-code
     unstable.pi-coding-agent
   ];
   programs.zsh = {
