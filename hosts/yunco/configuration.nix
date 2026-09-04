@@ -37,6 +37,10 @@
   users.users.fjara = {
       uid = 1002;
       extraGroups = [ "wheel" "docker" "dialout" ];
+      # `t3 service install` runs `loginctl enable-linger` as one of its steps.
+      # Without it the t3code user unit only lives as long as a login session,
+      # so the server would die with the last shell instead of staying up.
+      linger = true;
   };
   environment.systemPackages = with pkgs; [
     vim
