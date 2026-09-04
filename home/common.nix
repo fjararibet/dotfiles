@@ -30,6 +30,7 @@
     unstable.codex
     unstable.opencode
     unstable.claude-code
+    unstable.t3code
     unstable.pi-coding-agent
   ];
   programs.zsh = {

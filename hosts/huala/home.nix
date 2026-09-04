@@ -8,7 +8,6 @@
 
   home.packages = with pkgs; [
     zapzap
-    unstable.t3code
     unstable.osu-lazer-bin
     unstable.spotiflac
     unstable.google-cloud-sdk
