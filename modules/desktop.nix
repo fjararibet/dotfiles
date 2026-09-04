@@ -1,6 +1,20 @@
 { config, lib, pkgs, inputs, ... }:
 let
   swayPkgs = inputs.nixpkgs-sway-working.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+  lySessionWrapper = pkgs.writeShellScript "ly-session-wrapper" ''
+    case "$*" in
+      *gnome-session*)
+        export XDG_CURRENT_DESKTOP=GNOME
+        export XDG_SESSION_DESKTOP=gnome
+        ;;
+      *sway*)
+        export XDG_CURRENT_DESKTOP=sway
+        export XDG_SESSION_DESKTOP=sway
+        ;;
+    esac
+
+    exec ${config.services.displayManager.sessionData.wrapper} "$@"
+  '';
 in {
   # Sway 1.11 retains the gamma-control protocol used by gammastep.
   nixpkgs.overlays = [
@@ -90,6 +104,7 @@ in {
     enable = true;
     settings = {
       session_log = "null";
+      setup_cmd = "${lySessionWrapper}";
     };
   };
   services.gnome.gnome-keyring.enable = true;
