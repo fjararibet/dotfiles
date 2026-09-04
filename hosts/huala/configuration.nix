@@ -39,6 +39,13 @@ in
 
   networking.hostName = "huala";
 
+  users.users.progcomp = {
+    isNormalUser = true;
+    description = "Competitive programming";
+  };
+
+  home-manager.users.progcomp = import ./progcomp-home.nix;
+
   programs.steam = {
     enable = true;
   };
