@@ -1,5 +1,6 @@
 set nocp rnu
 set et ts=4 sw=4 sts=4 si
+set cb=unnamedplus
 syntax on
 set bg=dark
 colorscheme catppuccin
