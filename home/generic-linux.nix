@@ -27,12 +27,15 @@
   # Emit the managed ~/.profile for shells started after manual activation.
   programs.bash.enable = true;
 
-  # targets.genericLinux sources Nix's profile script, but that script only
-  # adds the user profile to PATH.  Nix itself is not installed in that
-  # profile, so make the exact Nix used by Home Manager available to zsh.
+  # The launcher/session manager may replace PATH after hm-session-vars.sh has
+  # been sourced. Its exported guard is inherited by new tmux panes, so restore
+  # the Home Manager profile in every zsh. Nix itself is not installed in that
+  # profile, so also expose the exact Nix used by Home Manager.
   programs.zsh.envExtra = lib.mkAfter ''
-    path=("${pkgs.nix}/bin" $path)
+    typeset -U path
+    path=("$HOME/.nix-profile/bin" "${pkgs.nix}/bin" $path)
     export PATH
+    export SHELL="${config.programs.zsh.package}/bin/zsh"
   '';
 
   # logind starts the systemd user manager before our bootstrap runs, so it
