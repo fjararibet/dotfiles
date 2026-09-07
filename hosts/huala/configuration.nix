@@ -39,6 +39,9 @@ in
 
   networking.hostName = "huala";
 
+  # 12 cores; leave a few for whatever huala is doing itself.
+  remoteBuilder.server.enable = true;
+
   users.users.progcomp = {
     isNormalUser = true;
     description = "Competitive programming";
