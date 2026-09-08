@@ -20,7 +20,10 @@
 
   programs.nix-ld.enable = true;
 
-  services.tailscale.enable = true;
+  services.tailscale = {
+    enable = true;
+    extraSetFlags = [ "--ssh" ];
+  };
   networking.networkmanager.enable = true;
   networking.nftables.enable = true;
   networking.firewall = {

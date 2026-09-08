@@ -36,10 +36,6 @@ in
         shell = pkgs.bashInteractive;
       };
 
-      # Tailscale authenticates clients using their tailnet identity. The
-      # tailnet SSH policy grants non-interactive access as nixremote.
-      services.tailscale.extraSetFlags = [ "--ssh" ];
-
       # Trusted so clients can push unsigned derivations and pull the results back.
       nix.settings.trusted-users = [ "nixremote" ];
       nix.settings.max-jobs = cfg.server.maxJobs;
