@@ -8,6 +8,21 @@
     packages = [];
   };
 
+  # Allow agents to activate this host's flake without an interactive password.
+  security.sudo.extraRules = [
+    {
+      users = [ "fjara" ];
+      runAs = "root";
+      commands = [
+        {
+          # Escape the flake separator so sudoers does not treat it as a comment.
+          command = "/run/current-system/sw/bin/nixos-rebuild switch --flake /home/fjara/dotfiles\\#${config.networking.hostName}";
+          options = [ "NOPASSWD" ];
+        }
+      ];
+    }
+  ];
+
   nix.settings.auto-optimise-store = true;
   nixpkgs.config.allowUnfree = true;
   nix.gc = {
