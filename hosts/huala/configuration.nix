@@ -69,6 +69,7 @@ in
 
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "fjara" ];
+  t3code.enable = true;
 
   # For more information, see `man configuration.nix` 
   # or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
