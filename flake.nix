@@ -46,10 +46,23 @@
       };
 
       unstableOverlay = final: _prev: {
-        unstable = import nixpkgs-unstable {
-          inherit (final) config;
-          inherit (final.stdenv.hostPlatform) system;
-        };
+        unstable =
+          let
+            unstablePkgs = import nixpkgs-unstable {
+              inherit (final) config;
+              inherit (final.stdenv.hostPlatform) system;
+            };
+          in
+          unstablePkgs
+          // {
+            opencode = unstablePkgs.opencode.overrideAttrs (old: {
+              postPatch = (old.postPatch or "") + ''
+                # TODO: Remove once bun 1.4.x splitting no longer breaks OpenCode prompts.
+                substituteInPlace packages/opencode/script/build.ts \
+                  --replace-fail 'splitting: true,' 'splitting: false,'
+              '';
+            });
+          };
       };
 
       ttypOverlay = inputs.ttyp.overlays.default;
