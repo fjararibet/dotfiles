@@ -34,7 +34,28 @@
   virtualisation.docker = {
     enable = true;
   };
-  # t3code is configured per user via the home-manager module (home/t3code.nix).
+  t3code.enable = true;
+
+  # huala's t3code reachable here as 127.0.0.1:12000; the local 3773 is taken by
+  # yunco's own instance. Plain TCP: the hop already rides tailscale's WireGuard,
+  # and Tailscale SSH's check mode rules out an unattended `ssh -L`.
+  systemd.sockets.t3code-huala = {
+    description = "Local endpoint for huala's T3 Code server";
+    wantedBy = [ "sockets.target" ];
+    socketConfig.ListenStream = "127.0.0.1:12000";
+  };
+
+  systemd.services.t3code-huala = {
+    description = "Forward 127.0.0.1:12000 to huala:3773";
+    requires = [ "t3code-huala.socket" ];
+    after = [ "t3code-huala.socket" "tailscaled.service" ];
+    serviceConfig = {
+      ExecStart = "${pkgs.systemd}/lib/systemd/systemd-socket-proxyd huala:3773";
+      DynamicUser = true;
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+  };
   remoteBuilder.client.enable = true;
   users.users.fjara = {
       uid = 1002;
