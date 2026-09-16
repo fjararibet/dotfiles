@@ -32,6 +32,7 @@
   };
   systemd.user.services = {
     elephant.Install.WantedBy = lib.mkForce [ "sway-session.target" ];
+    elephant.Service.Environment = [ "XDG_SESSION_TYPE=wayland" ];
     walker.Install.WantedBy = lib.mkForce [ "sway-session.target" ];
   };
   xdg.configFile.alacritty.source = paths.config + "/alacritty";
