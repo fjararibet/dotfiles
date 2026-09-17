@@ -111,7 +111,6 @@
                 ttypOverlay
               ];
             }
-            ./modules/t3code.nix
             ./modules/remote-builder.nix
             home-manager.nixosModules.home-manager
             {
@@ -146,7 +145,9 @@
       };
 
       homeManagerModules.default = ./home/common.nix;
+      homeManagerModules.t3code = ./home/t3code.nix;
       homeModules.default = ./home/common.nix;
+      homeModules.t3code = ./home/t3code.nix;
 
       homeConfigurations = {
         fjara = mkHomeConfig {

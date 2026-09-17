@@ -14,6 +14,10 @@ in
       (paths.modules + "/desktop.nix")
     ];
 
+  # For more information, see `man configuration.nix` 
+  # or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  system.stateVersion = "25.05";
+
   services.plex = {
     enable = true;
     openFirewall = true;
@@ -69,10 +73,18 @@ in
 
   virtualisation.virtualbox.host.enable = true;
   users.extraGroups.vboxusers.members = [ "fjara" ];
-  t3code.enable = true;
 
-  # For more information, see `man configuration.nix` 
-  # or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "25.05";
+  # t3code is configured per user via the home-manager module (home/t3code.nix);
+  # the user services survive logout because of lingering.
+  users.users.fjara.linger = true;
 
+  users.users.ale = {
+    isNormalUser = true;
+    extraGroups = [];
+    shell = pkgs.bash;
+    packages = [];
+    linger = true;
+  };
+
+  home-manager.users.ale = import ./ale-home.nix;
 }

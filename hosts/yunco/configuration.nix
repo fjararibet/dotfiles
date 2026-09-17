@@ -34,11 +34,12 @@
   virtualisation.docker = {
     enable = true;
   };
-  t3code.enable = true;
+  # t3code is configured per user via the home-manager module (home/t3code.nix).
   remoteBuilder.client.enable = true;
   users.users.fjara = {
       uid = 1002;
       extraGroups = [ "wheel" "docker" "dialout" ];
+      linger = true;
   };
   environment.systemPackages = with pkgs; [
     vim
