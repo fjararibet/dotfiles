@@ -53,16 +53,7 @@
               inherit (final.stdenv.hostPlatform) system;
             };
           in
-          unstablePkgs
-          // {
-            opencode = unstablePkgs.opencode.overrideAttrs (old: {
-              postPatch = (old.postPatch or "") + ''
-                # TODO: Remove once bun 1.4.x splitting no longer breaks OpenCode prompts.
-                substituteInPlace packages/opencode/script/build.ts \
-                  --replace-fail 'splitting: true,' 'splitting: false,'
-              '';
-            });
-          };
+          unstablePkgs;
       };
 
       ttypOverlay = inputs.ttyp.overlays.default;

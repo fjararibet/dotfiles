@@ -10,6 +10,7 @@
   t3code.enable = true;
 
   home.packages = with pkgs; [
+    cloudflared
     zapzap
     unstable.osu-lazer-bin
     unstable.spotiflac
