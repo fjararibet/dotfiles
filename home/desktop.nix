@@ -30,6 +30,7 @@
     enable = true;
     runAsService = true;
   };
+  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
   systemd.user.services = {
     elephant.Install.WantedBy = lib.mkForce [ "sway-session.target" ];
     elephant.Service.Environment = [ "XDG_SESSION_TYPE=wayland" ];

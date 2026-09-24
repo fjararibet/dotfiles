@@ -67,6 +67,7 @@ in {
     fontDir.enable = true;
   };
   programs.firefox.enable = true;
+  programs.dconf.enable = true;
 
   programs.sway = {
     enable = true;

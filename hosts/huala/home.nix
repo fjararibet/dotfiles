@@ -13,7 +13,6 @@
     cloudflared
     zapzap
     unstable.osu-lazer-bin
-    unstable.spotiflac
     unstable.google-cloud-sdk
   ];
 }
