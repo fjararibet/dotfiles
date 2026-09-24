@@ -37,7 +37,7 @@
 
   services.tailscale = {
     enable = true;
-    extraSetFlags = [ "--ssh" ];
+    extraSetFlags = [ "--ssh" "--operator=fjara" ];
   };
   networking.networkmanager.enable = true;
   networking.nftables.enable = true;
