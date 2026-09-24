@@ -1,6 +1,11 @@
 { lib, pkgs, inputs, paths, ... }:
 
-
+let
+  elephantPackages = inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system};
+  vendorHash = "sha256-5AL1731OKp2AZgknZAvcfyL+TuU3DIPozjSItE5nOM8=";
+  elephant = elephantPackages.elephant.overrideAttrs { inherit vendorHash; };
+  providers = elephantPackages.elephant-providers.overrideAttrs { inherit vendorHash; };
+in
 {
   imports = [
     inputs.walker.homeManagerModules.default
@@ -29,6 +34,14 @@
   programs.walker = {
     enable = true;
     runAsService = true;
+  };
+  programs.elephant.package = elephantPackages.elephant-with-providers.overrideAttrs {
+    buildInputs = [ elephant providers ];
+    installPhase = ''
+      mkdir -p $out/bin $out/lib/elephant
+      cp ${elephant}/bin/elephant $out/bin/
+      cp -r ${providers}/lib/elephant/providers $out/lib/elephant/
+    '';
   };
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
   systemd.user.services = {
