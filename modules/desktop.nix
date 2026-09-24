@@ -3,10 +3,6 @@ let
   swayPkgs = inputs.nixpkgs-sway-working.legacyPackages.${pkgs.stdenv.hostPlatform.system};
   lySessionWrapper = pkgs.writeShellScript "ly-session-wrapper" ''
     case "$*" in
-      *gnome-session*)
-        export XDG_CURRENT_DESKTOP=GNOME
-        export XDG_SESSION_DESKTOP=gnome
-        ;;
       *sway*)
         export XDG_CURRENT_DESKTOP=sway
         export XDG_SESSION_DESKTOP=sway
@@ -107,15 +103,5 @@ in {
       setup_cmd = "${lySessionWrapper}";
     };
   };
-  # GCR provides the SSH agent used for Git SSH signing, but Sway does not
-  # inherit the socket path from the systemd user manager.
-  environment.extraInit = lib.mkIf config.services.gnome.gcr-ssh-agent.enable (lib.mkAfter ''
-    if [ -z "$SSH_AUTH_SOCK" ] && [ -n "$XDG_RUNTIME_DIR" ]; then
-      export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gcr/ssh"
-    fi
-  '');
-
-  services.desktopManager.gnome.enable = true;
-  services.gnome.games.enable = false;
-  environment.gnome.excludePackages = with pkgs; [ gnome-tour gnome-user-docs ];
+  programs.ssh.startAgent = true;
 }
