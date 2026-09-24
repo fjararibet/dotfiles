@@ -16,7 +16,7 @@ set $right l
 
 set $term alacritty
 set $browser firefox
-set $menu nc -U /run/user/1000/walker/walker.sock
+set $menu nc -U $XDG_RUNTIME_DIR/walker/walker.sock
 
 
 output * bg ~/dotfiles/wallpapers/city_night.jpg fill
