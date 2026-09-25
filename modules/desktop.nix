@@ -85,7 +85,8 @@ in {
   };
   programs.sway.xwayland.enable = true;
   programs.niri.enable = true;
-  services.gnome.gnome-keyring.enable = lib.mkForce false;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.ly.enableGnomeKeyring = true;
   xdg.portal = {
     enable = true;
     config = {

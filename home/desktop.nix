@@ -19,6 +19,7 @@ in
     audacity
     gammastep
     discord
+    ferdium
     vesktop
     obsidian
     spotify

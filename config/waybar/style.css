@@ -59,6 +59,20 @@
   outline: none;
 }
 
+#custom-overview {
+  color: #c8c093; /* Consistent with the rest of the waybar */
+  padding: 0.3rem 0.6rem;
+  background: transparent;
+  transition: all 0.2s ease-in-out;
+  border: none;
+  outline: none;
+}
+
+#custom-overview:hover {
+  background: rgb(41, 42, 53); /* Reference bright hover color */
+  color: #c6d0f5;
+}
+
 #workspaces button.active {
   color: #99d1db;
   background-color: rgba(153, 209, 219, 0.1);

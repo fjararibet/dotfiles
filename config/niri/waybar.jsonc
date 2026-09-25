@@ -5,6 +5,7 @@
   "margin-bottom": -2,
   "spacing" : 0,
   "modules-left": [
+      "custom/overview",
       "niri/workspaces",
   ],
 
@@ -27,6 +28,12 @@
       "focused": "",
       "default": "",
     },
+  },
+
+  "custom/overview": {
+    "format": "󰊓",
+    "tooltip": false,
+    "on-click": "niri msg action toggle-overview"
   },
 
   "bluetooth": {

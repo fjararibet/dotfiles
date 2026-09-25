@@ -31,15 +31,17 @@ workspace "2"
 
 prefer-no-csd
 
+hotkey-overlay {
+    skip-at-startup
+}
+
 layout {
     gaps 5
     focus-ring {
         off
     }
     border {
-        width 1
-        active-color "#c8c093"
-        inactive-color "#090618"
+        off
     }
 }
 
@@ -53,6 +55,14 @@ animations {
 window-rule {
     geometry-corner-radius 1
     clip-to-geometry true
+}
+
+window-rule {
+    match is-active=false
+    opacity 0.8
+    background-effect {
+        blur true
+    }
 }
 
 window-rule {
@@ -71,6 +81,8 @@ spawn-at-startup "firefox" "-P" "default"
 spawn-at-startup "alacritty"
 
 binds {
+    Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Shift+R { spawn "/home/fjara/dotfiles/config/niri/reload-desktop.sh"; }
     Mod+WheelScrollDown cooldown-ms=150 { focus-workspace-down; }
     Mod+WheelScrollUp cooldown-ms=150 { focus-workspace-up; }
     Mod+Tab { toggle-overview; }
@@ -83,8 +95,8 @@ binds {
     Mod+Alt+L { spawn "swaylock" "--indicator-idle-visible" "--image" "/home/fjara/Backgrounds/teatime.jpg"; }
 
     Mod+H { focus-column-left; }
-    Mod+J { focus-column-up; }
-    Mod+K { focus-column-down; }
+    Mod+J { focus-window-down; }
+    Mod+K { focus-window-up; }
     Mod+L { focus-column-right; }
     Mod+Left { focus-column-left; }
     Mod+Down { focus-window-down; }
