@@ -79,14 +79,19 @@ in {
       swayr
       wlogout
       waybar
+      swaybg
+      swaylock
     ];
   };
   programs.sway.xwayland.enable = true;
+  programs.niri.enable = true;
+  services.gnome.gnome-keyring.enable = lib.mkForce false;
   xdg.portal = {
     enable = true;
     config = {
       common.default = [ "gtk" ];
       sway.default = lib.mkForce [ "wlr" "gtk" ];
+      niri.default = [ "gnome" "gtk" ];
     };
     wlr.settings.screencast = {
       chooser_type = "simple";
@@ -95,6 +100,7 @@ in {
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
       xdg-desktop-portal-wlr
+      xdg-desktop-portal-gnome
     ];
   };
   services.displayManager.ly = {
@@ -105,4 +111,5 @@ in {
     };
   };
   programs.ssh.startAgent = true;
+  services.gnome.gcr-ssh-agent.enable = lib.mkForce false;
 }
