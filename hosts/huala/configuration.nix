@@ -60,6 +60,7 @@ in
     wants = [ "network-online.target" ];
     serviceConfig = {
       Type = "oneshot";
+      User = "fjara";
       Nice = 10;
       IOSchedulingClass = "idle";
     };
