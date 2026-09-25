@@ -83,8 +83,8 @@ binds {
     Mod+Alt+L { spawn "swaylock" "--indicator-idle-visible" "--image" "/home/fjara/Backgrounds/teatime.jpg"; }
 
     Mod+H { focus-column-left; }
-    Mod+J { focus-window-down; }
-    Mod+K { focus-window-up; }
+    Mod+J { focus-column-up; }
+    Mod+K { focus-column-down; }
     Mod+L { focus-column-right; }
     Mod+Left { focus-column-left; }
     Mod+Down { focus-window-down; }
