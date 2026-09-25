@@ -34,7 +34,6 @@
   virtualisation.docker = {
     enable = true;
   };
-  t3code.enable = true;
 
   # huala's t3code reachable here as 127.0.0.1:12000; the local 3773 is taken by
   # yunco's own instance. Plain TCP: the hop already rides tailscale's WireGuard,

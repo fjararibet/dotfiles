@@ -103,14 +103,10 @@ binds {
     Mod+Shift+Up { move-window-up; }
     Mod+Shift+Right { move-column-right; }
 
-    Mod+D { focus-workspace "1"; }
-    Mod+F { focus-workspace "2"; }
-    Mod+C { focus-workspace-up; }
-    Mod+V { focus-workspace-down; }
-    Mod+Alt+D { move-window-to-workspace "1"; }
-    Mod+Alt+F { move-window-to-workspace "2"; }
-    Mod+Alt+C { move-window-to-workspace-up; }
-    Mod+Alt+V { move-window-to-workspace-down; }
+    Mod+D { focus-workspace-up; }
+    Mod+F { focus-workspace-down; }
+    Mod+Alt+D { move-window-to-workspace-up; }
+    Mod+Alt+F { move-window-to-workspace-down; }
 
     Alt+Shift+F { fullscreen-window; }
     Mod+Shift+Space { toggle-window-floating; }

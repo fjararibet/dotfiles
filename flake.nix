@@ -52,8 +52,18 @@
               inherit (final) config;
               inherit (final.stdenv.hostPlatform) system;
             };
+            t3codeWithConnect = unstablePkgs.t3code.override {
+              t3code-unwrapped = unstablePkgs.t3code.unwrapped.overrideAttrs (old: {
+                # Upstream's example contains the public production Clerk and
+                # relay identifiers used by the official T3 Connect builds.
+                # Vite embeds these in the CLI, web client, and desktop app.
+                postPatch = (old.postPatch or "") + ''
+                  cp .env.example .env
+                '';
+              });
+            };
           in
-          unstablePkgs;
+          unstablePkgs // { t3code = t3codeWithConnect; };
       };
 
       ttypOverlay = inputs.ttyp.overlays.default;

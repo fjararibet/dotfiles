@@ -5,6 +5,11 @@
 { config, lib, pkgs, inputs, paths, ... }:
 let
   unstable = import inputs.nixpkgs-unstable { system = pkgs.stdenv.hostPlatform.system; config.allowUnfree = true; };
+
+  # Hosts whose system closures are pre-built into huala's store so clients
+  # can substitute them from the nix-serve cache instead of building.
+  buildHosts = [ "yunco" "huala" "pudu" "fragata" ];
+  flakePath = "/home/fjara/dotfiles";
 in
 {
   imports =
@@ -45,6 +50,36 @@ in
 
   # 12 cores; leave a few for whatever huala is doing itself.
   remoteBuilder.server.enable = true;
+
+  # Nightly pre-build of every host's system closure so the nix-serve cache is
+  # warm for clients. No flake update: build whatever the dotfiles currently pin.
+  systemd.services.build-hosts = {
+    description = "Pre-build all host system closures into the local cache";
+    path = [ pkgs.nix ];
+    after = [ "network-online.target" ];
+    wants = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      Nice = 10;
+      IOSchedulingClass = "idle";
+    };
+    script = ''
+      set -euo pipefail
+      for host in ${builtins.concatStringsSep " " buildHosts}; do
+        nix build --no-link \
+          "${flakePath}#nixosConfigurations.$host.config.system.build.toplevel"
+      done
+    '';
+  };
+
+  systemd.timers.build-hosts = {
+    description = "Nightly pre-build of all host system closures";
+    wantedBy = [ "timers.target" ];
+    timerConfig = {
+      OnCalendar = "daily";
+      Persistent = true;
+    };
+  };
 
   users.users.progcomp = {
     isNormalUser = true;
