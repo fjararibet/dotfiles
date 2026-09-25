@@ -13,6 +13,12 @@
 
   boot.zfs.extraPools = [ "zpool" ];
 
+  # Dedicated SSD for the Nix store.
+  fileSystems."/nix" = {
+    device = "/dev/disk/by-uuid/a6bcfaa1-c130-4d4f-9a0d-a6329f4f87ba";
+    fsType = "ext4";
+  };
+
   services.udev.extraRules = ''
     ACTION=="add|change", SUBSYSTEM=="block", KERNEL=="sd[a-z]", \
       ATTR{queue/rotational}=="1", \
