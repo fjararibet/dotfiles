@@ -52,15 +52,7 @@ in
   xdg.configFile.alacritty.source = paths.config + "/alacritty";
   xdg.configFile.sway.source = paths.config + "/sway";
   xdg.configFile."niri/config.kdl".source = paths.config + "/niri/config.kdl";
-  xdg.configFile."niri/waybar.jsonc".text = builtins.replaceStrings
-    [
-      "sway/workspaces"
-      "\"disable-click\": true"
-      "    \"disable-scroll\": true,\n"
-      "    \"persistent-workspaces\": {\n      \"1\": [],\n      \"2\": [],\n      \"3\": [],\n      \"4\": [],\n    }\n"
-    ]
-    [ "niri/workspaces" "\"disable-click\": false" "" "" ]
-    (builtins.readFile (paths.config + "/waybar/config.jsonc"));
+  xdg.configFile."niri/waybar.jsonc".source = paths.config + "/niri/waybar.jsonc";
   xdg.configFile.walker.source = paths.config + "/walker";
   xdg.configFile.waybar.source = paths.config + "/waybar";
   xdg.configFile.wlogout.source = paths.config + "/wlogout";

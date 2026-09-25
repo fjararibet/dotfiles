@@ -29,14 +29,10 @@ output "HDMI-A-1" {
 workspace "1"
 workspace "2"
 
+prefer-no-csd
+
 layout {
     gaps 5
-    struts {
-        left 5
-        right 5
-        top 5
-        bottom 5
-    }
     focus-ring {
         off
     }
