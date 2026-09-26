@@ -44,7 +44,6 @@
       bibata-cursors
       brightnessctl
       dmenu
-      foot
       grim
       pulseaudio
       swayidle

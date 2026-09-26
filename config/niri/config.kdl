@@ -74,7 +74,15 @@ window-rule {
     open-on-workspace "2"
 }
 
+// Put the awww backdrop surface (namespace "awww-daemonbackdrop")
+// behind the overview and between workspaces.
+layer-rule {
+    match namespace="^awww-daemonbackdrop$"
+    place-within-backdrop true
+}
+
 spawn-at-startup "swaybg" "-i" "/home/fjara/dotfiles/wallpapers/city_night.jpg" "-m" "fill"
+spawn-at-startup "/home/fjara/dotfiles/config/niri/backdrop.sh"
 spawn-at-startup "/home/fjara/dotfiles/config/niri/gammastep.sh"
 spawn-at-startup "waybar" "-c" "/home/fjara/.config/niri/waybar.jsonc"
 spawn-at-startup "firefox" "-P" "default"

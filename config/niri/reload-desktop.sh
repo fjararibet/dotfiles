@@ -20,3 +20,7 @@ pkill -f "swaybg -i" || true
 pkill -f "gammastep -m" || true
 nohup swaybg -i /home/fjara/dotfiles/wallpapers/city_night.jpg -m fill >/dev/null 2>&1 &
 nohup /home/fjara/dotfiles/config/niri/gammastep.sh >/dev/null 2>&1 &
+
+# Reload the overview backdrop.
+pkill -f "awww-daemon --namespace backdrop" || true
+nohup /home/fjara/dotfiles/config/niri/backdrop.sh >/dev/null 2>&1 &

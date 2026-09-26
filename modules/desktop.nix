@@ -74,6 +74,7 @@ in {
     wrapperFeatures.gtk = true;
     extraPackages = with pkgs; [
       adwaita-icon-theme
+      awww
       slurp
       sway-contrib.grimshot
       swayr
