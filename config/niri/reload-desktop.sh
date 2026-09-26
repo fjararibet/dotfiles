@@ -19,4 +19,4 @@ nohup waybar -c "$WAYBAR_CFG" >/dev/null 2>&1 &
 pkill -f "swaybg -i" || true
 pkill -f "gammastep -m" || true
 nohup swaybg -i /home/fjara/dotfiles/wallpapers/city_night.jpg -m fill >/dev/null 2>&1 &
-nohup gammastep -m wayland -t 6500:6500 -g 0.7 -l 0:0 >/dev/null 2>&1 &
+nohup /home/fjara/dotfiles/config/niri/gammastep.sh >/dev/null 2>&1 &

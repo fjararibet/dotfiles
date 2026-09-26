@@ -75,7 +75,7 @@ window-rule {
 }
 
 spawn-at-startup "swaybg" "-i" "/home/fjara/dotfiles/wallpapers/city_night.jpg" "-m" "fill"
-spawn-at-startup "gammastep" "-m" "wayland" "-t" "6500:6500" "-g" "0.7" "-l" "0:0"
+spawn-at-startup "/home/fjara/dotfiles/config/niri/gammastep.sh"
 spawn-at-startup "waybar" "-c" "/home/fjara/.config/niri/waybar.jsonc"
 spawn-at-startup "firefox" "-P" "default"
 spawn-at-startup "alacritty"
@@ -115,6 +115,15 @@ binds {
     Mod+F { focus-workspace-down; }
     Mod+Alt+D { move-window-to-workspace-up; }
     Mod+Alt+F { move-window-to-workspace-down; }
+
+    // Resize: preset cycling and fine adjustments (niri defaults).
+    Mod+R { switch-preset-column-width; }
+    Mod+Ctrl+Shift+R { switch-preset-window-height; }
+    Mod+Ctrl+R { reset-window-height; }
+    Mod+Minus { set-column-width "-10%"; }
+    Mod+Equal { set-column-width "+10%"; }
+    Mod+Shift+Minus { set-window-height "-10%"; }
+    Mod+Shift+Equal { set-window-height "+10%"; }
 
     Alt+Shift+F { fullscreen-window; }
     Mod+Shift+Space { toggle-window-floating; }
