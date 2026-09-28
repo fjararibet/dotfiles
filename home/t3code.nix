@@ -2,14 +2,6 @@
 
 let
   cfg = config.t3code;
-  waitForNetwork = pkgs.writeShellScript "t3code-wait-for-network" ''
-    for ((attempt = 0; attempt < 60; attempt++)); do
-      if ${pkgs.iproute2}/bin/ip -4 route get 1.1.1.1 >/dev/null 2>&1; then
-        exit 0
-      fi
-      ${pkgs.coreutils}/bin/sleep 1
-    done
-  '';
 in
 {
   options.t3code = {
@@ -47,7 +39,6 @@ in
 
       Service = {
         Type = "simple";
-        ExecStartPre = waitForNetwork;
         ExecStart = "${pkgs.unstable.t3code}/bin/t3 serve --port ${toString cfg.port} --host ${lib.escapeShellArg cfg.host}";
         WorkingDirectory = "%h";
         Restart = "always";

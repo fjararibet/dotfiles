@@ -1,12 +1,4 @@
-return {
-  {
-    'nvim-treesitter/nvim-treesitter',
-    branch = 'main',
-    lazy = false,
-    dependencies = {
-      { 'nvim-treesitter/nvim-treesitter-textobjects', branch = 'main' },
-    },
-    config = function()
+do
       local ts = require('nvim-treesitter')
 
       -- Nix provides all parsers in the plugin runtime path.
@@ -66,6 +58,4 @@ return {
       -- swap
       vim.keymap.set('n', '<leader>a', function() swap.swap_next('@parameter.inner') end, { desc = 'Swap parameter next' })
       vim.keymap.set('n', '<leader>A', function() swap.swap_previous('@parameter.inner') end, { desc = 'Swap parameter previous' })
-    end,
-  },
-}
+end

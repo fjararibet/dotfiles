@@ -13,7 +13,6 @@ let
   };
 
   nvimPlugins = with nvimPkgs.vimPlugins; {
-    "folke/lazy.nvim" = lazy-nvim;
     "tpope/vim-sleuth" = vim-sleuth;
     "folke/which-key.nvim" = which-key-nvim;
     "Vimjas/vim-python-pep8-indent" = vim-python-pep8-indent;
@@ -50,8 +49,12 @@ let
     cp -r ${paths.config + "/nvim"} "$out"
     chmod -R u+w "$out"
     mkdir -p "$out/lua/config"
+    mkdir -p "$out/pack/nix/opt"
+    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: plugin: ''
+      ln -s ${plugin} "$out/pack/nix/opt/${lib.replaceStrings [ "/" ] [ "-" ] name}"
+    '') nvimPlugins)}
     cat > "$out/lua/config/nix-plugins.lua" <<'EOF'
-    return ${lib.generators.toLua { } (builtins.mapAttrs (_: builtins.toString) nvimPlugins)}
+    return ${lib.generators.toLua { } (builtins.mapAttrs (name: _: lib.replaceStrings [ "/" ] [ "-" ] name) nvimPlugins)}
     EOF
   '';
 in

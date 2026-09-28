@@ -1,34 +1,20 @@
--- Must happen before plugins are loaded (otherwise wrong leader will be used)
+-- Set leaders before loading any plugin scripts.
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-local plugins = require 'config.nix-plugins'
-
--- Lazy loads plugin definitions, while Nix provides their immutable sources.
-vim.opt.rtp:prepend(plugins['folke/lazy.nvim'])
-
-local function is_plugin(spec)
-  return type(spec) == 'table' and #spec == 1 and type(spec[1]) == 'string'
+-- Nix links the plugins into Neovim's native package directory. Load each
+-- package now so its Lua modules and plugin scripts are available for setup.
+local config_dir = vim.fn.fnamemodify(debug.getinfo(1, 'S').source:sub(2), ':h')
+vim.opt.runtimepath:prepend(config_dir)
+vim.opt.packpath:prepend(config_dir)
+for _, name in pairs(require 'config.nix-plugins') do
+  vim.cmd.packadd(name)
 end
 
-local function use_nix_store(spec)
-  if type(spec) == 'string' then
-    spec = { spec }
-  end
+require 'config.plugins.colorschemes'
+vim.cmd.colorscheme 'kanagawa'
 
-  if is_plugin(spec) then
-    local repo = spec[1]
-    spec.dir = assert(plugins[repo], ('Nix has no source for %s'):format(repo))
-    spec.dependencies = vim.tbl_map(use_nix_store, spec.dependencies or {})
-    return spec
-  end
-
-  return vim.tbl_map(use_nix_store, spec)
-end
-
-local specs = {}
 for _, name in ipairs {
-  'colorschemes',
   'cmp',
   'conform',
   'git',
@@ -40,21 +26,5 @@ for _, name in ipairs {
   'treesitter',
   'undotree',
 } do
-  local spec = use_nix_store(require('config.plugins.' .. name))
-  if is_plugin(spec) then
-    table.insert(specs, spec)
-  else
-    vim.list_extend(specs, spec)
-  end
+  require('config.plugins.' .. name)
 end
-
-require('lazy').setup(specs, {
-  install = { missing = false },
-  pkg = { enabled = false },
-  rocks = { enabled = false },
-})
-
-vim.cmd.colorscheme 'kanagawa'
-
--- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et

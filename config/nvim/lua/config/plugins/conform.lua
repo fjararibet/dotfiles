@@ -1,41 +1,16 @@
-return {
-  {
-      "stevearc/conform.nvim",
-      event = { "BufWritePre" },
-      cmd = { "ConformInfo" },
-      keys = {
-        {
-          -- Customize or remove this keymap to your liking
-          "<leader>f",
-          function()
-            require("conform").format({ async = true, lsp_fallback = true })
-          end,
-          mode = "",
-          desc = "Format buffer",
-        },
-      },
-      -- Everything in opts will be passed to setup()
-      opts = {
-        -- Define your formatters
-        formatters_by_ft = {
-          -- lua = { "stylua" },
-          -- python = { "isort", "black" },
-          -- javascript = { { "prettierd", "prettier" } },
-          html = { "djlint" },
-          htmldjango = { "djlint" },
-          json = { "prettier" },
-          ocaml = { "ocamlformat" },
-          -- cpp = { "clang-format" },
-        },
-        -- Customize formatters
-        formatters = {
-          shfmt = {
-            prepend_args = { "-i", "2" },
-          },
-        },
-      },
-      init = function()
-        -- If you want the formatexpr, here is the place to set it
-        vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
-      end,
-    },}
+require('conform').setup {
+  formatters_by_ft = {
+    html = { 'djlint' },
+    htmldjango = { 'djlint' },
+    json = { 'prettier' },
+    ocaml = { 'ocamlformat' },
+  },
+  formatters = {
+    shfmt = { prepend_args = { '-i', '2' } },
+  },
+}
+
+vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+vim.keymap.set('', '<leader>f', function()
+  require('conform').format { async = true, lsp_fallback = true }
+end, { desc = 'Format buffer' })

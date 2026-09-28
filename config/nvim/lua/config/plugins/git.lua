@@ -1,8 +1,4 @@
-return {
-  {
-    -- Adds git releated signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
+require('gitsigns').setup {
       -- See `:help gitsigns.txt`
       signs = {
         add = { text = '+' },
@@ -20,11 +16,6 @@ return {
         vim.keymap.set('n', '<leader>gsh', require('gitsigns').stage_hunk, { buffer = bufnr, desc = '[G]it [S]tage [H]unk' })
         vim.keymap.set('n', '<leader>guh', require('gitsigns').undo_stage_hunk, { buffer = bufnr, desc = '[G]it [U]ndo Stage [H]unk' })
       end,
-    },
-  },
-
-  {
-    -- Single tabpage interface for cycling through git diffs and file history
-    'sindrets/diffview.nvim',
-  },
 }
+
+-- diffview initializes from its plugin script.

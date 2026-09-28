@@ -1,10 +1,4 @@
-return {
-  {
-    -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-    },
-    config = function()
+do
       -- Diagnostic keymaps
       vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
@@ -26,7 +20,7 @@ return {
               desc = 'LSP: ' .. desc
             end
 
-            vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+            vim.keymap.set('n', keys, func, { buffer = args.buf, desc = desc })
           end
 
           nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
@@ -67,6 +61,4 @@ return {
         end
         vim.lsp.enable(server)
       end
-    end,
-  },
-}
+end

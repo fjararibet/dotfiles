@@ -1,22 +1,5 @@
-return {
-  {
-    -- Autocompletion
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      -- Snippet Engine & its associated nvim-cmp source
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-
-      -- Adds path completion
-      'hrsh7th/cmp-path',
-
-      -- Completes with word from buffer
-      'hrsh7th/cmp-buffer',
-
-      -- Adds LSP completion capabilities
-      'hrsh7th/cmp-nvim-lsp',
-    },
-    config = function()
+do
+      require('html-css').setup {}
       vim.opt.completeopt = { "menu", "menuone", "noselect" }
       -- [[ Configure nvim-cmp ]]
       -- See `:help cmp`
@@ -93,13 +76,4 @@ return {
           { name = 'buffer' },
         },
       }
-    end,
-  },
-  {
-    "Jezda1337/nvim-html-css",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    opts = {},
-  },
-}
+end

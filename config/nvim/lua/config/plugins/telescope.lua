@@ -1,10 +1,4 @@
-return {
-  'nvim-telescope/telescope.nvim',
-  dependencies = {
-    'nvim-lua/plenary.nvim',
-    'nvim-telescope/telescope-fzf-native.nvim',
-  },
-  config = function()
+do
     local actions = require('telescope.actions')
     -- [[ Configure Telescope ]]
     -- See `:help telescope` and `:help telescope.setup()`
@@ -40,5 +34,4 @@ return {
     vim.keymap.set('n', '<leader>sb', require('telescope.builtin').git_branches, { desc = '[S]earch Git [B]ranches' })
     vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
     vim.keymap.set('n', '<leader>sm', require('telescope.builtin').lsp_document_symbols, { desc = '[S]earch [M]ethods' })
-  end,
-}
+end
