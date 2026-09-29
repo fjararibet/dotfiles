@@ -28,7 +28,6 @@ in
     pavucontrol
     playerctl
     vlc
-    rofi
     hledger
   ];
 

@@ -59,7 +59,7 @@
   outline: none;
 }
 
-#custom-overview {
+#custom-walker {
   color: #c8c093; /* Consistent with the rest of the waybar */
   padding: 0.3rem 0.6rem;
   background: transparent;
@@ -68,7 +68,7 @@
   outline: none;
 }
 
-#custom-overview:hover {
+#custom-walker:hover {
   background: rgb(41, 42, 53); /* Reference bright hover color */
   color: #c6d0f5;
 }

@@ -5,7 +5,7 @@
   "margin-bottom": -2,
   "spacing" : 0,
   "modules-left": [
-      "custom/overview",
+      "custom/walker",
       "niri/workspaces",
   ],
 
@@ -30,10 +30,10 @@
     },
   },
 
-  "custom/overview": {
-    "format": "󰊓",
-    "tooltip": false,
-    "on-click": "niri msg action toggle-overview"
+  "custom/walker": {
+    "format": "󰀻",
+    "tooltip": "Open Walker",
+    "on-click": "sh -c 'nc -U \"$XDG_RUNTIME_DIR/walker/walker.sock\"'"
   },
 
   "bluetooth": {
