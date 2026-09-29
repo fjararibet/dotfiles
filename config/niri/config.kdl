@@ -21,13 +21,11 @@ input {
     }
 }
 
-output "HDMI-A-1" {
-    mode "1920x1080@143.999"
-    position x=0 y=0
-}
 
-workspace "1"
-workspace "2"
+output "Samsung Electric Company LS27FG53x H9DL301095" {
+    mode "2560x1440@200.000"
+    scale 1.25
+}
 
 prefer-no-csd
 
@@ -42,6 +40,12 @@ layout {
     }
     border {
         off
+    }
+    preset-column-widths {
+        proportion 0.33333
+        proportion 0.5
+        proportion 0.66667
+        proportion 1.0
     }
 }
 
@@ -65,15 +69,6 @@ window-rule {
     }
 }
 
-window-rule {
-    match at-startup=true app-id=r#"firefox$"#
-    open-on-workspace "1"
-}
-window-rule {
-    match at-startup=true app-id=r#"Alacritty"#
-    open-on-workspace "2"
-}
-
 // Put the awww backdrop surface (namespace "awww-daemonbackdrop")
 // behind the overview and between workspaces.
 layer-rule {
@@ -83,10 +78,8 @@ layer-rule {
 
 spawn-at-startup "swaybg" "-i" "/home/fjara/dotfiles/wallpapers/city_night.jpg" "-m" "fill"
 spawn-at-startup "/home/fjara/dotfiles/config/niri/backdrop.sh"
-spawn-at-startup "/home/fjara/dotfiles/config/niri/gammastep.sh"
 spawn-at-startup "waybar" "-c" "/home/fjara/.config/niri/waybar.jsonc"
 spawn-at-startup "firefox" "-P" "default"
-spawn-at-startup "alacritty"
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
@@ -124,7 +117,6 @@ binds {
     Mod+Alt+D { move-window-to-workspace-up; }
     Mod+Alt+F { move-window-to-workspace-down; }
 
-    // Resize: preset cycling and fine adjustments (niri defaults).
     Mod+R { switch-preset-column-width; }
     Mod+Ctrl+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }

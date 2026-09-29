@@ -17,7 +17,6 @@ in
     alacritty
     obs-studio
     audacity
-    gammastep
     discord
     ferdium
     vesktop

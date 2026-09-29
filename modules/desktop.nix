@@ -12,7 +12,6 @@ let
     exec ${config.services.displayManager.sessionData.wrapper} "$@"
   '';
 in {
-  # Sway 1.11 retains the gamma-control protocol used by gammastep.
   nixpkgs.overlays = [
     (_final: _prev: {
       sway = swayPkgs.sway;

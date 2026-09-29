@@ -61,6 +61,7 @@
 
 #custom-walker {
   color: #c8c093; /* Consistent with the rest of the waybar */
+  font-size: 17px;
   padding: 0.3rem 0.6rem;
   background: transparent;
   transition: all 0.2s ease-in-out;

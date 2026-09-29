@@ -20,7 +20,6 @@ set $menu nc -U $XDG_RUNTIME_DIR/walker/walker.sock
 
 
 output * bg ~/dotfiles/wallpapers/city_night.jpg fill
-exec gammastep -O 6500K -g 0.7 -l 0:0
 
 # NixOS' shutdown subscription can exit unsuccessfully when Sway closes,
 # leaving sway-session.target active and preventing a later GNOME login.
@@ -30,6 +29,11 @@ exec sh -c 'swaymsg -t subscribe '\''["shutdown"]'\''; systemctl --user stop swa
 output HDMI-A-1 { 
     mode 1920x1080@143.999Hz 
     position 0 0
+}
+
+output "Samsung Electric Company LS27FG53x H9DL301095" {
+    mode 2560x1440@200Hz
+    scale 1.25
 }
 
 input type:touchpad {
