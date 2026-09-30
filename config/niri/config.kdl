@@ -27,6 +27,10 @@ output "Samsung Electric Company LS27FG53x H9DL301095" {
     scale 1.25
 }
 
+output "Lenovo Group Limited LEN G24-10 U5B448B5" {
+    mode "1920x1080@143.999"
+}
+
 prefer-no-csd
 
 hotkey-overlay {
@@ -57,7 +61,7 @@ animations {
 }
 
 window-rule {
-    geometry-corner-radius 1
+    geometry-corner-radius 0
     clip-to-geometry true
 }
 

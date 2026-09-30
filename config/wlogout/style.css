@@ -1,0 +1,34 @@
+@import url("@WLOGOUT@/etc/wlogout/style.css");
+
+@define-color background #1f1f28;
+@define-color foreground #dcd7ba;
+@define-color border #54546d;
+@define-color hover #2d4f67;
+
+* {
+  border-radius: 0;
+  transition: none;
+  animation: none;
+  box-shadow: none;
+  font-family: 'CommitMono Nerd Font', sans-serif;
+}
+
+window {
+  background-color: alpha(@background, 0.95);
+}
+
+button {
+  background-color: @background;
+  color: @foreground;
+  text-decoration-color: @foreground;
+  border: 1px solid @border;
+}
+
+button:hover,
+button:focus,
+button:active {
+  background-color: @hover;
+  color: @foreground;
+  border-color: @border;
+  outline: none;
+}

@@ -33,6 +33,8 @@ in
   programs.walker = {
     enable = true;
     runAsService = true;
+    config = builtins.fromTOML (builtins.readFile (paths.config + "/walker/config.toml"));
+    themes.default.style = builtins.readFile (paths.config + "/walker/themes/default/style.css");
   };
   programs.elephant.package = elephantPackages.elephant-with-providers.overrideAttrs {
     buildInputs = [ elephant providers ];
@@ -52,7 +54,10 @@ in
   xdg.configFile.sway.source = paths.config + "/sway";
   xdg.configFile."niri/config.kdl".source = paths.config + "/niri/config.kdl";
   xdg.configFile."niri/waybar.jsonc".source = paths.config + "/niri/waybar.jsonc";
-  xdg.configFile.walker.source = paths.config + "/walker";
   xdg.configFile.waybar.source = paths.config + "/waybar";
-  xdg.configFile.wlogout.source = paths.config + "/wlogout";
+  xdg.configFile."wlogout/layout".source = paths.config + "/wlogout/layout";
+  xdg.configFile."wlogout/style.css".text = builtins.replaceStrings
+    [ "@WLOGOUT@" ]
+    [ "${pkgs.wlogout}" ]
+    (builtins.readFile (paths.config + "/wlogout/style.css"));
 }
