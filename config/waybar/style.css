@@ -1,16 +1,4 @@
-@define-color background #1f1f28;
-@define-color foreground #c8c093;
-@define-color secondary #babbf1;
-@define-color hover_background #292a35;
-@define-color hover_foreground #c6d0f5;
-@define-color accent #99d1db;
-@define-color success #a6d189;
-@define-color warning #e78284;
-@define-color muted #888888;
-@define-color bluetooth_enabled #2196f3;
-@define-color tooltip_foreground #dddddd;
-@define-color tooltip_border alpha(#ffffff, 0.1);
-@define-color shadow #000000;
+@import url("../kanagawa.css");
 
 * {
   border-radius: 0;

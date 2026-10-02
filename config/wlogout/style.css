@@ -1,9 +1,6 @@
 @import url("@WLOGOUT@/etc/wlogout/style.css");
 
-@define-color background #1f1f28;
-@define-color foreground #dcd7ba;
-@define-color border #54546d;
-@define-color hover #2d4f67;
+@import url("../kanagawa.css");
 
 * {
   border-radius: 0;
@@ -17,18 +14,32 @@ window {
   background-color: alpha(@background, 0.95);
 }
 
-button {
-  background-color: @background;
+window button {
+    background-color: @background;
+    background-image: none;
   color: @foreground;
   text-decoration-color: @foreground;
-  border: 1px solid @border;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 button:hover,
 button:focus,
-button:active {
-  background-color: @hover;
+button:active,
+window button:hover,
+window button:focus,
+window button:active {
+   background-color: @hover_background;
   color: @foreground;
-  border-color: @border;
+  border: none;
+  box-shadow: none;
   outline: none;
 }
+
+#lock { background-image: url("@WLOGOUT_ICONS@/lock.png"); }
+#logout { background-image: url("@WLOGOUT_ICONS@/logout.png"); }
+#suspend { background-image: url("@WLOGOUT_ICONS@/suspend.png"); }
+#hibernate { background-image: url("@WLOGOUT_ICONS@/hibernate.png"); }
+#shutdown { background-image: url("@WLOGOUT_ICONS@/shutdown.png"); }
+#reboot { background-image: url("@WLOGOUT_ICONS@/reboot.png"); }

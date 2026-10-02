@@ -22,13 +22,10 @@ input {
 }
 
 
-output "Samsung Electric Company LS27FG53x H9DL301095" {
-    mode "2560x1440@200.000"
-    scale 1.25
-}
 
-output "Lenovo Group Limited LEN G24-10 U5B448B5" {
-    mode "1920x1080@143.999"
+output "PNP(AOC) AG275QXE 2O5R1JA003379" {
+    mode "2560x1440@144.001"
+    scale 1.25
 }
 
 prefer-no-csd
@@ -54,9 +51,42 @@ layout {
 }
 
 animations {
+    slowdown 1.0
     workspace-switch {
-        duration-ms 150
+        spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+    }
+    window-open {
+        off
+        duration-ms 100
+        curve "ease-out-expo"
+    }
+    window-close {
+        duration-ms 100
         curve "ease-out-quad"
+    }
+    horizontal-view-movement {
+        spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+    }
+    window-movement {
+        spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+    }
+    window-resize {
+        spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+    }
+    config-notification-open-close {
+        spring damping-ratio=0.6 stiffness=1000 epsilon=0.001
+    }
+    exit-confirmation-open-close {
+        spring damping-ratio=0.6 stiffness=500 epsilon=0.01
+    }
+    screenshot-ui-open {
+        off
+    }
+    overview-open-close {
+        spring damping-ratio=1.0 stiffness=2000 epsilon=0.0001
+    }
+    recent-windows-close {
+        spring damping-ratio=1.0 stiffness=2000 epsilon=0.001
     }
 }
 

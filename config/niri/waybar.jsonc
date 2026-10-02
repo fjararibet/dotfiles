@@ -157,6 +157,7 @@
   },
 
   "custom/power": {
+      "tooltip": false,
       "format": "⏻",
       "on-click": "wlogout",
   },
