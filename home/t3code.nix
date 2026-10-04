@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.t3code;
@@ -6,6 +11,12 @@ in
 {
   options.t3code = {
     enable = lib.mkEnableOption "the T3 Code server";
+
+    package = lib.mkOption {
+      type = lib.types.package;
+      default = pkgs.t3code-nightly;
+      description = "T3 Code CLI package used by the server and installed for the user.";
+    };
 
     host = lib.mkOption {
       type = lib.types.str;
@@ -21,6 +32,8 @@ in
   };
 
   config = lib.mkIf cfg.enable {
+    home.packages = [ cfg.package ];
+
     # Nixified `t3 service install`. Run the packaged server directly instead
     # of installing an imperative unit and a self-updating launcher under ~/.t3.
     # Each user gets their own service in their own systemd user manager, so
@@ -39,7 +52,7 @@ in
 
       Service = {
         Type = "simple";
-        ExecStart = "${pkgs.unstable.t3code}/bin/t3 serve --port ${toString cfg.port} --host ${lib.escapeShellArg cfg.host}";
+        ExecStart = "${cfg.package}/bin/t3 serve --port ${toString cfg.port} --host ${lib.escapeShellArg cfg.host}";
         WorkingDirectory = "%h";
         Restart = "always";
         RestartSec = 5;

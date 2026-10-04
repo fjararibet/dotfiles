@@ -28,7 +28,7 @@
     vim-full
     unstable.tmux
     unstable.codex
-    unstable.t3code
+    t3code-nightly
     unstable.opencode
     unstable.github-cli
     unstable.claude-code

@@ -4,6 +4,15 @@
     nixpkgs-neovim.url = "github:NixOS/nixpkgs/fd1462031fdee08f65fd0b4c6b64e22239a77870";
     nixpkgs-sway-working.url = "github:NixOS/nixpkgs/f3d24765175719ad0e816a3d5dcb8e84c11bd842";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    t3code-src = {
+      url = "github:pingdotgg/t3code";
+      flake = false;
+    };
+    t3code = {
+      url = "path:./pkgs/t3code-source";
+      inputs.nixpkgs.follows = "nixpkgs-unstable";
+      inputs.t3code-src.follows = "t3code-src";
+    };
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
@@ -46,24 +55,12 @@
       };
 
       unstableOverlay = final: _prev: {
-        unstable =
-          let
-            unstablePkgs = import nixpkgs-unstable {
-              inherit (final) config;
-              inherit (final.stdenv.hostPlatform) system;
-            };
-            t3codeWithConnect = unstablePkgs.t3code.override {
-              t3code-unwrapped = unstablePkgs.t3code.unwrapped.overrideAttrs (old: {
-                # Upstream's example contains the public production Clerk and
-                # relay identifiers used by the official T3 Connect builds.
-                # Vite embeds these in the CLI, web client, and desktop app.
-                postPatch = (old.postPatch or "") + ''
-                  cp .env.example .env
-                '';
-              });
-            };
-          in
-          unstablePkgs // { t3code = t3codeWithConnect; };
+        t3code-nightly = inputs.t3code.packages.${final.stdenv.hostPlatform.system}.default;
+        t3code-desktop-nightly = final.t3code-nightly;
+        unstable = import nixpkgs-unstable {
+          inherit (final) config;
+          inherit (final.stdenv.hostPlatform) system;
+        };
       };
 
       ttypOverlay = inputs.ttyp.overlays.default;
@@ -127,6 +124,25 @@
         };
     in
     {
+      packages = lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (
+        system:
+        let
+          pkgs = import nixpkgs {
+            inherit system;
+            config.allowUnfree = true;
+            overlays = [ unstableOverlay ];
+          };
+        in
+        {
+          inherit (pkgs) t3code-nightly t3code-desktop-nightly;
+        }
+      );
+
+      apps = lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (system: {
+        t3code-nightly = inputs.t3code.apps.${system}.t3;
+        t3code-desktop-nightly = inputs.t3code.apps.${system}.desktop;
+      });
+
       nixosConfigurations = {
         yunco = mkHost {
           hostname = "yunco";
