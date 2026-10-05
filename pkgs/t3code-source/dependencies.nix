@@ -1,3 +1,3 @@
 {
-  pnpmHash = "sha256-WZSV8+ugCLfls7jW7hPFoL4wYAffpER71zt2VhaTVzQ=";
+  pnpmHash = "sha256-CByfcfZjPR2GiJjFakUAgm1BsuWKqyGM9GwDJWlYDLs=";
 }

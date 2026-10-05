@@ -24,7 +24,7 @@ input {
 
 
 output "PNP(AOC) AG275QXE 2O5R1JA003379" {
-    mode "2560x1440@144.001"
+    mode "2560x1440@180.000"
     scale 1.25
 }
 
