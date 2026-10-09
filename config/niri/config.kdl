@@ -126,7 +126,7 @@ binds {
     Mod+T { spawn "alacritty"; }
     Mod+Q { close-window; }
     Mod+Space { spawn-sh "nc -U $XDG_RUNTIME_DIR/walker/walker.sock"; }
-    Mod+P { spawn "walker" "--provider" "clipboard"; }
+    Mod+V { spawn "walker" "--provider" "clipboard"; }
     Mod+Alt+L { spawn "swaylock" "--indicator-idle-visible" "--image" "/home/fjara/Backgrounds/teatime.jpg"; }
 
     Mod+H { focus-column-left; }
