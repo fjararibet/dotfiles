@@ -23,11 +23,6 @@ in
   # or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "25.05";
 
-  services.plex = {
-    enable = true;
-    openFirewall = true;
-  };
-
   # Boot NixOS directly; hold Space during startup to open the boot menu.
   boot.loader = {
     systemd-boot.enable = true;
@@ -106,9 +101,6 @@ in
     wget
     curl
   ];
-
-  virtualisation.virtualbox.host.enable = true;
-  users.extraGroups.vboxusers.members = [ "fjara" ];
 
   # t3code is configured per user via the home-manager module (home/t3code.nix);
   # the user services survive logout because of lingering.

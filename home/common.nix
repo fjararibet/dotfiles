@@ -12,6 +12,7 @@
     jq
     fd
     git
+    git-lfs
     nil
     zip
     tree

@@ -4,15 +4,7 @@
     nixpkgs-neovim.url = "github:NixOS/nixpkgs/fd1462031fdee08f65fd0b4c6b64e22239a77870";
     nixpkgs-sway-working.url = "github:NixOS/nixpkgs/f3d24765175719ad0e816a3d5dcb8e84c11bd842";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    t3code-src = {
-      url = "github:pingdotgg/t3code";
-      flake = false;
-    };
-    t3code = {
-      url = "path:./pkgs/t3code-source";
-      inputs.nixpkgs.follows = "nixpkgs-unstable";
-      inputs.t3code-src.follows = "t3code-src";
-    };
+    t3code.url = "github:limwa/nix-t3code";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
@@ -55,7 +47,7 @@
       };
 
       unstableOverlay = final: _prev: {
-        t3code-nightly = inputs.t3code.packages.${final.stdenv.hostPlatform.system}.default;
+        t3code-nightly = inputs.t3code.packages.${final.stdenv.hostPlatform.system}.t3code-nightly;
         t3code-desktop-nightly = final.t3code-nightly;
         unstable = import nixpkgs-unstable {
           inherit (final) config;
@@ -139,8 +131,16 @@
       );
 
       apps = lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (system: {
-        t3code-nightly = inputs.t3code.apps.${system}.t3;
-        t3code-desktop-nightly = inputs.t3code.apps.${system}.desktop;
+        t3code-nightly = {
+          type = "app";
+          program = "${self.packages.${system}.t3code-nightly}/bin/t3";
+          meta.description = "Run the T3 Code nightly CLI";
+        };
+        t3code-desktop-nightly = {
+          type = "app";
+          program = "${self.packages.${system}.t3code-nightly}/bin/t3code-desktop";
+          meta.description = "Run the T3 Code nightly desktop";
+        };
       });
 
       nixosConfigurations = {
