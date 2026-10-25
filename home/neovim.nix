@@ -59,6 +59,6 @@ let
   '';
 in
 {
-  home.packages = [ nvimPkgs.neovim ];
+  home.packages = [ nvimPkgs.neovim pkgs.go pkgs.gopls ];
   xdg.configFile.nvim.source = nvimConfig;
 }

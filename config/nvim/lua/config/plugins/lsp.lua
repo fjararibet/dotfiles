@@ -52,6 +52,7 @@ do
       local servers = {
         ty = {},
         clangd = {},
+        gopls = {},
         nil_ls = {},
       }
 
