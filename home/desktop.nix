@@ -54,7 +54,16 @@ in
       cp -r ${providers}/lib/elephant/providers $out/lib/elephant/
     '';
   };
-  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
+  gtk = {
+    enable = true;
+    theme.name = "Adwaita-dark";
+    gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
+    gtk4.extraConfig.gtk-application-prefer-dark-theme = true;
+  };
+  dconf.settings."org/gnome/desktop/interface" = {
+    color-scheme = "prefer-dark";
+    gtk-theme = "Adwaita-dark";
+  };
   systemd.user.services = {
     elephant.Install.WantedBy = lib.mkForce [ "sway-session.target" "niri.service" ];
     elephant.Service.Environment = [ "XDG_SESSION_TYPE=wayland" ];
