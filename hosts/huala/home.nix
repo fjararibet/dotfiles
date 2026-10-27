@@ -1,4 +1,4 @@
-{ pkgs, paths, ... }:
+{ config, pkgs, paths, ... }:
 let
   zapzapWayland = pkgs.symlinkJoin {
     name = "zapzap-wayland";
@@ -16,6 +16,21 @@ in {
   ];
 
   t3code.enable = true;
+
+  # Keep Rex independently updatable through `nix profile`; restart after upgrades.
+  systemd.user.services.rex = {
+    Unit.Description = "Rex server";
+    Service = {
+      ExecStart = "${config.home.homeDirectory}/.nix-profile/bin/rex server run";
+      WorkingDirectory = "%h";
+      Restart = "on-failure";
+      RestartSec = 5;
+      Environment = [
+        "PATH=${config.home.homeDirectory}/.nix-profile/bin:/etc/profiles/per-user/${config.home.username}/bin:/run/current-system/sw/bin"
+      ];
+    };
+    Install.WantedBy = [ "default.target" ];
+  };
 
   home.packages = with pkgs; [
     cloudflared
