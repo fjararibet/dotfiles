@@ -11,6 +11,12 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "fragata";
+  # Keep external displays running when the laptop lid is closed.
+  services.logind.settings.Login = {
+    HandleLidSwitch = "ignore";
+    HandleLidSwitchExternalPower = "ignore";
+    HandleLidSwitchDocked = "ignore";
+  };
   services.xserver.videoDrivers = [ "nvidia" "modesetting" ];
   hardware.nvidia = {
     modesetting.enable = true;
@@ -18,7 +24,8 @@
     powerManagement.finegrained = false;
     open = false;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # Pascal (GTX 1050) requires the 580 legacy driver; newer branches drop support.
+    package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
   };
 
   hardware.nvidia.prime = {

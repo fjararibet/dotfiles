@@ -1,8 +1,13 @@
-{ lib, pkgs, paths, ... }:
+{ config, lib, pkgs, paths, ... }:
 
 let
   kanagawa = (builtins.fromTOML (builtins.readFile (paths.config + "/alacritty/kanagawa.toml"))).colors;
   cssColor = color: builtins.replaceStrings [ "0x" ] [ "#" ] color;
+  displayMenu = pkgs.writeShellApplication {
+    name = "niri-display-menu";
+    runtimeInputs = [ pkgs.niri pkgs.jq pkgs.libnotify config.programs.walker.package ];
+    text = builtins.readFile (paths.config + "/niri/display-menu.sh");
+  };
   wlogoutIcons = pkgs.runCommand "wlogout-kanagawa-icons" {
     nativeBuildInputs = [ pkgs.imagemagick ];
   } ''
@@ -14,6 +19,7 @@ let
 in
 {
   home.packages = with pkgs; [
+    displayMenu
     qbittorrent
     audacious
     alacritty

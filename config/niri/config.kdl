@@ -28,6 +28,10 @@ output "PNP(AOC) AG275QXE 2O5R1JA003379" {
     scale 1.25
 }
 
+output "ViewSonic Corporation VA2456A-FHD XVF2523A3791" {
+    mode "1920x1080@120.000"
+}
+
 prefer-no-csd
 
 hotkey-overlay {
@@ -127,6 +131,7 @@ binds {
     Mod+Q { close-window; }
     Mod+Space { spawn-sh "nc -U $XDG_RUNTIME_DIR/walker/walker.sock"; }
     Mod+V { spawn "walker" "--provider" "clipboard"; }
+    Mod+P hotkey-overlay-title="Display mode" { spawn "niri-display-menu"; }
     Mod+Alt+L { spawn "swaylock" "--indicator-idle-visible" "--image" "/home/fjara/Backgrounds/teatime.jpg"; }
 
     Mod+H { focus-column-left; }
