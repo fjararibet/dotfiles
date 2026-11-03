@@ -1,10 +1,6 @@
-{ lib, pkgs, inputs, paths, ... }:
+{ lib, pkgs, paths, ... }:
 
 let
-  elephantPackages = inputs.elephant.packages.${pkgs.stdenv.hostPlatform.system};
-  vendorHash = "sha256-5AL1731OKp2AZgknZAvcfyL+TuU3DIPozjSItE5nOM8=";
-  elephant = elephantPackages.elephant.overrideAttrs { inherit vendorHash; };
-  providers = elephantPackages.elephant-providers.overrideAttrs { inherit vendorHash; };
   kanagawa = (builtins.fromTOML (builtins.readFile (paths.config + "/alacritty/kanagawa.toml"))).colors;
   cssColor = color: builtins.replaceStrings [ "0x" ] [ "#" ] color;
   wlogoutIcons = pkgs.runCommand "wlogout-kanagawa-icons" {
@@ -17,10 +13,6 @@ let
   '';
 in
 {
-  imports = [
-    inputs.walker.homeManagerModules.default
-  ];
-
   home.packages = with pkgs; [
     qbittorrent
     audacious
@@ -40,19 +32,20 @@ in
     hledger
   ];
 
-  programs.walker = {
+  services.walker = {
     enable = true;
-    runAsService = true;
-    config = builtins.fromTOML (builtins.readFile (paths.config + "/walker/config.toml"));
-    themes.default.style = builtins.readFile (paths.config + "/walker/themes/default/style.css");
+    package = pkgs.unstable.walker;
+    systemd.enable = true;
+    enableElephantIntegration = true;
+    settings = builtins.fromTOML (builtins.readFile (paths.config + "/walker/config.toml"));
+    theme = {
+      name = "default";
+      style = builtins.readFile (paths.config + "/walker/themes/default/style.css");
+    };
   };
-  programs.elephant.package = elephantPackages.elephant-with-providers.overrideAttrs {
-    buildInputs = [ elephant providers ];
-    installPhase = ''
-      mkdir -p $out/bin $out/lib/elephant
-      cp ${elephant}/bin/elephant $out/bin/
-      cp -r ${providers}/lib/elephant/providers $out/lib/elephant/
-    '';
+  services.elephant = {
+    enable = true;
+    package = pkgs.unstable.elephant;
   };
   gtk = {
     enable = true;
@@ -65,8 +58,20 @@ in
     gtk-theme = "Adwaita-dark";
   };
   systemd.user.services = {
+    # Keep both backends tied to the active Wayland session, as with the
+    # upstream modules. Nixpkgs' Elephant wrapper discovers its own providers.
+    elephant.Unit = {
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      ConditionEnvironment = "WAYLAND_DISPLAY";
+    };
     elephant.Install.WantedBy = lib.mkForce [ "sway-session.target" "niri.service" ];
     elephant.Service.Environment = [ "XDG_SESSION_TYPE=wayland" ];
+    walker.Unit = {
+      After = [ "graphical-session.target" ];
+      PartOf = [ "graphical-session.target" ];
+      ConditionEnvironment = "WAYLAND_DISPLAY";
+    };
     walker.Install.WantedBy = lib.mkForce [ "sway-session.target" "niri.service" ];
   };
   xdg.configFile.alacritty.source = paths.config + "/alacritty";
