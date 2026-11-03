@@ -33,8 +33,37 @@ nix run .#t3code-nightly -- --version
 nix run .#t3code-desktop-nightly
 ```
 
-The Home Manager T3 Code service uses the same nightly package. Rebuild
-and activate the local NixOS configuration to install updates.
+On **huala**, both `fjara` and `ale` instead install T3 Code independently with
+`nix profile add`. It is not a dependency of that host's system or Home Manager
+build. Activation bootstraps a missing profile installation at the previously
+deployed revision, without upgrading an existing installation. Other hosts still
+use the flake's packaged version.
+
+The CLI, desktop launcher, and user service use `~/.nix-profile`. Existing
+`~/.t3` data, credentials, and settings stay in place; the services retain ports
+3773 (`fjara`) and 3774 (`ale`), and still start at boot via lingering.
+
+To move from the migration's pinned version to the latest nightly, run as the
+account whose installation you want to update:
+
+```sh
+nix profile remove t3code-nightly
+nix profile add github:limwa/nix-t3code#t3code-nightly
+systemctl --user restart t3code
+```
+
+After that one-time move to the unpinned URL, future updates need no rebuild:
+
+```sh
+nix profile upgrade t3code-nightly
+systemctl --user restart t3code
+```
+
+The migration version can be reinstalled with:
+
+```sh
+nix profile add github:limwa/nix-t3code/e024ef5edfa4cbff3fe681c18782029a5381637d#t3code-nightly
+```
 
 # Initial setup
 

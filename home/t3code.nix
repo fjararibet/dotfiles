@@ -18,6 +18,18 @@ in
       description = "T3 Code CLI package used by the server and installed for the user.";
     };
 
+    profileManaged = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      description = "Install T3 Code independently in the user's Nix profile instead of the Home Manager closure.";
+    };
+
+    profileInstallable = lib.mkOption {
+      type = lib.types.str;
+      default = "github:limwa/nix-t3code#t3code-nightly";
+      description = "Installable used to bootstrap an empty user profile; existing installations are never upgraded during activation.";
+    };
+
     host = lib.mkOption {
       type = lib.types.str;
       default = "0.0.0.0";
@@ -32,7 +44,15 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [ cfg.package ];
+    home.packages = lib.mkIf (!cfg.profileManaged) [ cfg.package ];
+
+    # Bootstrap once, as the owning user. In profile mode the system closure
+    # contains only this installable string, never the T3 Code package.
+    home.activation.t3codeProfile = lib.mkIf cfg.profileManaged (lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "writeBoundary" ] ''
+      if [ ! -x "$HOME/.nix-profile/bin/t3" ]; then
+        run ${pkgs.nix}/bin/nix profile add ${lib.escapeShellArg cfg.profileInstallable}
+      fi
+    '');
 
     # Nixified `t3 service install`. Run the packaged server directly instead
     # of installing an imperative unit and a self-updating launcher under ~/.t3.
@@ -52,7 +72,7 @@ in
 
       Service = {
         Type = "simple";
-        ExecStart = "${cfg.package}/bin/t3 serve --port ${toString cfg.port} --host ${lib.escapeShellArg cfg.host}";
+        ExecStart = "${if cfg.profileManaged then "${config.home.homeDirectory}/.nix-profile" else cfg.package}/bin/t3 serve --port ${toString cfg.port} --host ${lib.escapeShellArg cfg.host}";
         WorkingDirectory = "%h";
         Restart = "always";
         RestartSec = 5;

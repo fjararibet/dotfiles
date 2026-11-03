@@ -1,4 +1,4 @@
-{ lib, pkgs, paths, ... }:
+{ config, lib, pkgs, paths, ... }:
 
 {
   imports = [ (paths.home + "/neovim.nix") ];
@@ -30,12 +30,11 @@
     vim-full
     unstable.tmux
     unstable.codex
-    t3code-nightly
     unstable.opencode
     unstable.github-cli
     unstable.claude-code
     unstable.pi-coding-agent
-  ];
+  ] ++ lib.optionals (!(config.t3code.profileManaged or false)) [ pkgs.t3code-nightly ];
   programs.zsh = {
     enable = true;
     envExtra = ''

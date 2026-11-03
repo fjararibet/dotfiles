@@ -16,6 +16,9 @@ in {
   ];
 
   t3code.enable = true;
+  t3code.profileManaged = true;
+  # Preserve the deployed version during migration; upgrades use nix profile.
+  t3code.profileInstallable = "github:limwa/nix-t3code/e024ef5edfa4cbff3fe681c18782029a5381637d#t3code-nightly";
 
   # Keep Rex independently updatable through `nix profile`; restart after upgrades.
   systemd.user.services.rex = {
