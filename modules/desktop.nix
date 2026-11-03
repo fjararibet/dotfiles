@@ -85,6 +85,7 @@ in {
   };
   programs.sway.xwayland.enable = true;
   programs.niri.enable = true;
+  programs.hyprlock.enable = true;
   # Niri starts this on demand to support X11 applications such as Steam.
   environment.systemPackages = [ pkgs.xwayland-satellite ];
   services.gnome.gnome-keyring.enable = true;

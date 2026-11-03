@@ -5,7 +5,7 @@ let
   cssColor = color: builtins.replaceStrings [ "0x" ] [ "#" ] color;
   displayMenu = pkgs.writeShellApplication {
     name = "niri-display-menu";
-    runtimeInputs = [ pkgs.niri pkgs.jq pkgs.libnotify config.programs.walker.package ];
+    runtimeInputs = [ pkgs.niri pkgs.jq pkgs.libnotify config.services.walker.package ];
     text = builtins.readFile (paths.config + "/niri/display-menu.sh");
   };
   wlogoutIcons = pkgs.runCommand "wlogout-kanagawa-icons" {
@@ -37,10 +37,50 @@ in
     playerctl
     vlc
     hledger
+    unstable.chatgpt
   ];
 
   services.network-manager-applet.enable = true;
   xsession.preferStatusNotifierItems = true;
+
+  programs.hyprlock = {
+    enable = true;
+    settings = {
+      animations.enabled = false;
+      background = [{
+        monitor = "";
+        path = "${../wallpapers/teatime.jpg}";
+        # More passes and a larger size produce stronger blur; 0 passes disables it.
+        blur_passes = 2;
+        blur_size = 2;
+      }];
+      input-field = [{
+        monitor = "";
+        size = "300, 56";
+        position = "0, -100";
+        halign = "center";
+        valign = "center";
+        outline_thickness = 0;
+        inner_color = "rgba(0, 0, 0, 0)";
+        font_color = "rgb(${lib.removePrefix "0x" kanagawa.primary.foreground})";
+        # Apply authentication colors to the dots, not the transparent background.
+        swap_font_color = true;
+        check_color = "rgb(${lib.removePrefix "0x" kanagawa.bright.green})";
+        fail_color = "rgb(${lib.removePrefix "0x" kanagawa.normal.red})";
+        placeholder_text = "";
+        fail_text = "authentication failed";
+      }];
+      label = [{
+        monitor = "";
+        text = "$TIME";
+        font_size = 64;
+        color = "rgb(${lib.removePrefix "0x" kanagawa.primary.foreground})";
+        position = "0, 50";
+        halign = "center";
+        valign = "center";
+      }];
+    };
+  };
 
   services.walker = {
     enable = true;
