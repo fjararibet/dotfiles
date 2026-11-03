@@ -1,4 +1,4 @@
-{ pkgs, paths, ... }:
+{ lib, pkgs, paths, ... }:
 
 {
   imports = [ (paths.home + "/neovim.nix") ];
@@ -20,7 +20,8 @@
     lsof
     ttyp
     htop
-    clang
+    (lib.hiPrio clang)
+    gcc
     unzip
     delta
     ripgrep
