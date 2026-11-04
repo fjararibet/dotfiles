@@ -10,6 +10,11 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  virtualisation.vmware.host.enable = true;
+
+  # Recommended by the NixOS VMware host module to avoid kcompactd stalls.
+  boot.kernelParams = [ "transparent_hugepage=never" ];
+
   networking.hostName = "fragata";
 
   services.avahi = {

@@ -18,6 +18,22 @@ let
   '';
 in
 {
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = [ "firefox.desktop" ];
+      "application/xhtml+xml" = [ "firefox.desktop" ];
+      "x-scheme-handler/http" = [ "firefox.desktop" ];
+      "x-scheme-handler/https" = [ "firefox.desktop" ];
+      "x-scheme-handler/discord-1216669957799018608" = [ "discord-1216669957799018608.desktop" ];
+      "x-scheme-handler/claude-cli" = [ "claude-code-url-handler.desktop" ];
+      "x-scheme-handler/t3code" = [ "com.t3tools.T3Code.desktop" ];
+      "x-scheme-handler/codex" = [ "chatgpt.desktop" ];
+    };
+  };
+
+  home.sessionVariables.BROWSER = "firefox";
+
   home.packages = with pkgs; [
     displayMenu
     qbittorrent
