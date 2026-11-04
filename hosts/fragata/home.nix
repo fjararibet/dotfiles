@@ -34,5 +34,6 @@
     unstable.nodejs
     unstable.opencode-desktop
     unstable.osu-lazer-bin
+    zapzap
   ];
 }
