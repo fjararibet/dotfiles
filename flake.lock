@@ -153,23 +153,6 @@
         "type": "github"
       }
     },
-    "nvim-html-css": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1774568559,
-        "narHash": "sha256-jvP91ZJ0U4BFZ/kMyeub6bj1DUKbdh7AdRF+bm/bYqg=",
-        "owner": "Jezda1337",
-        "repo": "nvim-html-css",
-        "rev": "510223bdd5533ed49cad5d8a13ec8b40ab16dcda",
-        "type": "github"
-      },
-      "original": {
-        "owner": "Jezda1337",
-        "repo": "nvim-html-css",
-        "rev": "510223bdd5533ed49cad5d8a13ec8b40ab16dcda",
-        "type": "github"
-      }
-    },
     "pyproject-build-systems": {
       "inputs": {
         "nixpkgs": [
@@ -228,7 +211,6 @@
         "nixpkgs-neovim": "nixpkgs-neovim",
         "nixpkgs-sway-working": "nixpkgs-sway-working",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "nvim-html-css": "nvim-html-css",
         "t3code": "t3code",
         "ttyp": "ttyp"
       }

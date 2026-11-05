@@ -1,5 +1,4 @@
 do
-      require('html-css').setup {}
       vim.opt.completeopt = { "menu", "menuone", "noselect" }
       -- [[ Configure nvim-cmp ]]
       -- See `:help cmp`
@@ -71,7 +70,6 @@ do
         sources = {
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
-          { name = 'html-css' },
           { name = 'path' },
           { name = 'buffer' },
         },

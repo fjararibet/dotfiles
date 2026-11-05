@@ -24,7 +24,6 @@ for _, name in ipairs {
   'oil',
   'telescope',
   'treesitter',
-  'undotree',
 } do
   require('config.plugins.' .. name)
 end

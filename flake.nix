@@ -18,10 +18,6 @@
       url = "github:fjararibet/ttyp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nvim-html-css = {
-      url = "github:Jezda1337/nvim-html-css/510223bdd5533ed49cad5d8a13ec8b40ab16dcda";
-      flake = false;
-    };
   };
 
   outputs =

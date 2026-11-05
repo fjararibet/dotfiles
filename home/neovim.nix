@@ -22,17 +22,9 @@ let
     "hrsh7th/cmp-path" = cmp-path;
     "hrsh7th/cmp-buffer" = cmp-buffer;
     "hrsh7th/cmp-nvim-lsp" = cmp-nvim-lsp;
-    "Jezda1337/nvim-html-css" = nvimPkgs.vimUtils.buildVimPlugin {
-      pname = "nvim-html-css";
-      version = "510223bdd5533ed49cad5d8a13ec8b40ab16dcda";
-      src = inputs.nvim-html-css;
-    };
-    "navarasu/onedark.nvim" = onedark-nvim;
-    "rose-pine/neovim" = rose-pine;
     "rebelot/kanagawa.nvim" = kanagawa-nvim;
     "stevearc/oil.nvim" = oil-nvim;
     "nvim-tree/nvim-web-devicons" = nvim-web-devicons;
-    "mbbill/undotree" = undotree;
     "lewis6991/gitsigns.nvim" = gitsigns-nvim;
     "sindrets/diffview.nvim" = diffview-nvim;
     "nvim-telescope/telescope.nvim" = telescope-nvim;
