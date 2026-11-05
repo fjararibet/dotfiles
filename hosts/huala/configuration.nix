@@ -67,16 +67,6 @@ in
   ];
 
   # t3code is configured per user via the home-manager module (home/t3code.nix);
-  # the user services survive logout because of lingering.
+  # the user service survives logout because of lingering.
   users.users.fjara.linger = true;
-
-  users.users.ale = {
-    isNormalUser = true;
-    extraGroups = [];
-    shell = pkgs.bash;
-    packages = [];
-    linger = true;
-  };
-
-  home-manager.users.ale = import ./ale-home.nix;
 }
