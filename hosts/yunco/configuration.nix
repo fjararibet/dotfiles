@@ -55,7 +55,6 @@
       RestartSec = 5;
     };
   };
-  remoteBuilder.client.enable = true;
   users.users.fjara = {
       uid = 1002;
       extraGroups = [ "wheel" "docker" "dialout" ];

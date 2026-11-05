@@ -37,7 +37,6 @@
 
   # t3code is configured per user via the home-manager module (home/t3code.nix).
   users.users.fjara.linger = true;
-  remoteBuilder.client.enable = true;
 
   # For more information, see `man configuration.nix` 
   # or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
