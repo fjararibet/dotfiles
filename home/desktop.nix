@@ -27,10 +27,14 @@ in
     davinci-resolve
     paraview
     pavucontrol
+    networkmanagerapplet
     playerctl
     vlc
     hledger
   ];
+
+  services.network-manager-applet.enable = true;
+  xsession.preferStatusNotifierItems = true;
 
   services.walker = {
     enable = true;
