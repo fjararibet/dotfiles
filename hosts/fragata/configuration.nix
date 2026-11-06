@@ -16,6 +16,7 @@
   boot.kernelParams = [ "transparent_hugepage=never" ];
 
   networking.hostName = "fragata";
+  networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
 
   services.avahi = {
     enable = true;
@@ -130,6 +131,7 @@
     vim
     wget
     curl
+    remmina
   ];
 
   services.libinput.enable = true;
