@@ -13,28 +13,24 @@
     fd
     git
     git-lfs
-    nil
     zip
     tree
     tree
     lsof
     ttyp
     htop
-    (lib.hiPrio clang)
     gcc
     unzip
     delta
     ripgrep
-    tree-sitter
     wl-clipboard
-    vim-full
-    unstable.tmux
+    tmux
     unstable.codex
     unstable.opencode
     unstable.github-cli
     unstable.claude-code
     unstable.pi-coding-agent
-  ] ++ lib.optionals (!(config.t3code.profileManaged or false)) [ pkgs.t3code-nightly ];
+  ] ++ lib.optionals (!(config.t3code.profileManaged or false)) [ pkgs.t3code ];
   programs.zsh = {
     enable = true;
     envExtra = ''

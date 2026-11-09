@@ -54,6 +54,15 @@ do
         clangd = {},
         gopls = {},
         nil_ls = {},
+        ts_ls = {},
+        jsonls = {
+          capabilities = require('cmp_nvim_lsp').default_capabilities(),
+          settings = {
+            json = {
+              validate = { enable = true },
+            },
+          },
+        },
       }
 
       for server, config in pairs(servers) do

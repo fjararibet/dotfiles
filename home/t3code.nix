@@ -14,7 +14,7 @@ in
 
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.t3code-nightly;
+      default = pkgs.t3code;
       description = "T3 Code CLI package used by the server and installed for the user.";
     };
 
@@ -26,7 +26,7 @@ in
 
     profileInstallable = lib.mkOption {
       type = lib.types.str;
-      default = "github:limwa/nix-t3code#t3code-nightly";
+      default = "github:limwa/nix-t3code#t3code";
       description = "Installable used to bootstrap an empty user profile; existing installations are never upgraded during activation.";
     };
 

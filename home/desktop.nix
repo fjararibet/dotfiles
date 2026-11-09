@@ -36,23 +36,16 @@ in
 
   home.packages = with pkgs; [
     displayMenu
-    qbittorrent
     audacious
     alacritty
-    obs-studio
-    audacity
-    discord
     ferdium
     vesktop
     obsidian
     spotify
-    davinci-resolve
-    paraview
     pavucontrol
     networkmanagerapplet
     playerctl
     vlc
-    hledger
     unstable.chatgpt
   ];
 
@@ -145,25 +138,9 @@ in
   xdg.configFile."niri/config.kdl".source = paths.config + "/niri/config.kdl";
   xdg.configFile."niri/waybar.jsonc".source = paths.config + "/niri/waybar.jsonc";
   xdg.configFile.waybar.source = paths.config + "/waybar";
-  xdg.configFile."kanagawa.css".text = ''
-    /* Shared palette from alacritty/kanagawa.toml. */
-    @define-color background ${cssColor kanagawa.primary.background};
-    @define-color foreground ${cssColor kanagawa.primary.foreground};
-    @define-color secondary ${cssColor kanagawa.normal.white};
-    @define-color hover_background #363646;
-    @define-color hover_foreground ${cssColor kanagawa.selection.foreground};
-    @define-color accent ${cssColor kanagawa.normal.blue};
-    @define-color success ${cssColor kanagawa.bright.green};
-    @define-color warning ${cssColor kanagawa.normal.red};
-    @define-color muted ${cssColor kanagawa.bright.black};
-    @define-color bluetooth_enabled ${cssColor kanagawa.bright.blue};
-    @define-color tooltip_foreground ${cssColor kanagawa.primary.foreground};
-    @define-color tooltip_border alpha(${cssColor kanagawa.normal.white}, 0.2);
-    @define-color shadow ${cssColor kanagawa.normal.black};
-  '';
+  xdg.configFile."kanagawa.css".source = paths.config + "/kanagawa.css";
   xdg.configFile."wlogout/layout".source = paths.config + "/wlogout/layout";
-  xdg.configFile."wlogout/style.css".text = builtins.replaceStrings
-    [ "@WLOGOUT@" "@WLOGOUT_ICONS@" ]
-    [ "${pkgs.wlogout}" "${wlogoutIcons}" ]
-    (builtins.readFile (paths.config + "/wlogout/style.css"));
+  xdg.configFile."wlogout/style.css".source = paths.config + "/wlogout/style.css";
+  xdg.configFile."wlogout/default.css".source = "${pkgs.wlogout}/etc/wlogout/style.css";
+  xdg.configFile."wlogout/icons".source = wlogoutIcons;
 }

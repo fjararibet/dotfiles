@@ -1,0 +1,14 @@
+/* Shared Kanagawa palette, matching alacritty/kanagawa.toml. */
+@define-color background #1f1f28;
+@define-color foreground #dcd7ba;
+@define-color secondary #c8c093;
+@define-color hover_background #363646;
+@define-color hover_foreground #c8c093;
+@define-color accent #7e9cd8;
+@define-color success #98bb6c;
+@define-color warning #c34043;
+@define-color muted #727169;
+@define-color bluetooth_enabled #7fb4ca;
+@define-color tooltip_foreground #dcd7ba;
+@define-color tooltip_border alpha(#c8c093, 0.2);
+@define-color shadow #090618;

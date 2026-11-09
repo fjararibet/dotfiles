@@ -38,8 +38,8 @@
       };
 
       unstableOverlay = final: _prev: {
-        t3code-nightly = inputs.t3code.packages.${final.stdenv.hostPlatform.system}.t3code-nightly;
-        t3code-desktop-nightly = final.t3code-nightly;
+        t3code = inputs.t3code.packages.${final.stdenv.hostPlatform.system}.t3code;
+        t3code-desktop = final.t3code;
         unstable = import nixpkgs-unstable {
           inherit (final) config;
           inherit (final.stdenv.hostPlatform) system;
@@ -116,20 +116,20 @@
           };
         in
         {
-          inherit (pkgs) t3code-nightly t3code-desktop-nightly;
+          inherit (pkgs) t3code t3code-desktop;
         }
       );
 
       apps = lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (system: {
-        t3code-nightly = {
+        t3code = {
           type = "app";
-          program = "${self.packages.${system}.t3code-nightly}/bin/t3";
-          meta.description = "Run the T3 Code nightly CLI";
+          program = "${self.packages.${system}.t3code}/bin/t3";
+          meta.description = "Run the T3 Code CLI";
         };
-        t3code-desktop-nightly = {
+        t3code-desktop = {
           type = "app";
-          program = "${self.packages.${system}.t3code-nightly}/bin/t3code-desktop";
-          meta.description = "Run the T3 Code nightly desktop";
+          program = "${self.packages.${system}.t3code}/bin/t3code-desktop";
+          meta.description = "Run the T3 Code desktop";
         };
       });
 

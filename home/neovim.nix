@@ -1,4 +1,4 @@
-{ inputs, lib, pkgs, paths, ... }:
+{ inputs, pkgs, paths, ... }:
 
 let
   nvimPkgs = import inputs.nixpkgs-neovim {
@@ -6,51 +6,42 @@ let
     config.allowUnfree = true;
   };
 
-  nvimTreesitter = nvimPkgs.vimPlugins.nvim-treesitter.withAllGrammars;
-  nvimTreesitterWithGrammars = nvimPkgs.symlinkJoin {
-    name = "nvim-treesitter-with-all-grammars";
-    paths = [ nvimTreesitter ] ++ nvimTreesitter.dependencies;
-  };
-
-  nvimPlugins = with nvimPkgs.vimPlugins; {
-    "tpope/vim-sleuth" = vim-sleuth;
-    "folke/which-key.nvim" = which-key-nvim;
-    "Vimjas/vim-python-pep8-indent" = vim-python-pep8-indent;
-    "hrsh7th/nvim-cmp" = nvim-cmp;
-    "L3MON4D3/LuaSnip" = luasnip;
-    "saadparwaiz1/cmp_luasnip" = cmp_luasnip;
-    "hrsh7th/cmp-path" = cmp-path;
-    "hrsh7th/cmp-buffer" = cmp-buffer;
-    "hrsh7th/cmp-nvim-lsp" = cmp-nvim-lsp;
-    "rebelot/kanagawa.nvim" = kanagawa-nvim;
-    "stevearc/oil.nvim" = oil-nvim;
-    "nvim-tree/nvim-web-devicons" = nvim-web-devicons;
-    "lewis6991/gitsigns.nvim" = gitsigns-nvim;
-    "sindrets/diffview.nvim" = diffview-nvim;
-    "nvim-telescope/telescope.nvim" = telescope-nvim;
-    "nvim-lua/plenary.nvim" = plenary-nvim;
-    "nvim-telescope/telescope-fzf-native.nvim" = telescope-fzf-native-nvim;
-    "nvim-lualine/lualine.nvim" = lualine-nvim;
-    "stevearc/conform.nvim" = conform-nvim;
-    "neovim/nvim-lspconfig" = nvim-lspconfig;
-    "nvim-treesitter/nvim-treesitter" = nvimTreesitterWithGrammars;
-    "nvim-treesitter/nvim-treesitter-textobjects" = nvim-treesitter-textobjects;
-  };
-
-  nvimConfig = nvimPkgs.runCommand "nvim-config" { } ''
-    cp -r ${paths.config + "/nvim"} "$out"
-    chmod -R u+w "$out"
-    mkdir -p "$out/lua/config"
-    mkdir -p "$out/pack/nix/opt"
-    ${lib.concatStringsSep "\n" (lib.mapAttrsToList (name: plugin: ''
-      ln -s ${plugin} "$out/pack/nix/opt/${lib.replaceStrings [ "/" ] [ "-" ] name}"
-    '') nvimPlugins)}
-    cat > "$out/lua/config/nix-plugins.lua" <<'EOF'
-    return ${lib.generators.toLua { } (builtins.mapAttrs (name: _: lib.replaceStrings [ "/" ] [ "-" ] name) nvimPlugins)}
-    EOF
-  '';
 in
 {
-  home.packages = [ nvimPkgs.neovim pkgs.go pkgs.gopls ];
-  xdg.configFile.nvim.source = nvimConfig;
+  programs.neovim = {
+    enable = true;
+    package = nvimPkgs.neovim-unwrapped;
+    plugins = with nvimPkgs.vimPlugins; [
+      vim-sleuth
+      which-key-nvim
+      vim-python-pep8-indent
+      nvim-cmp
+      luasnip
+      cmp_luasnip
+      cmp-path
+      cmp-buffer
+      cmp-nvim-lsp
+      kanagawa-nvim
+      oil-nvim
+      nvim-web-devicons
+      gitsigns-nvim
+      diffview-nvim
+      telescope-nvim
+      plenary-nvim
+      telescope-fzf-native-nvim
+      lualine-nvim
+      conform-nvim
+      nvim-lspconfig
+      nvim-treesitter.withAllGrammars
+      nvim-treesitter-textobjects
+    ];
+    initLua = builtins.readFile (paths.config + "/nvim/init.lua");
+  };
+
+  home.packages = [ pkgs.go pkgs.gopls pkgs.nil pkgs.tree-sitter pkgs.vscode-langservers-extracted ];
+  xdg.configFile = {
+    "nvim/lua".source = paths.config + "/nvim/lua";
+    "nvim/plugin".source = paths.config + "/nvim/plugin";
+    "nvim/after".source = paths.config + "/nvim/after";
+  };
 }

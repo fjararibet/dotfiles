@@ -2,14 +2,8 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--- Nix links the plugins into Neovim's native package directory. Load each
--- package now so its Lua modules and plugin scripts are available for setup.
-local config_dir = vim.fn.fnamemodify(debug.getinfo(1, 'S').source:sub(2), ':h')
-vim.opt.runtimepath:prepend(config_dir)
-vim.opt.packpath:prepend(config_dir)
-for _, name in pairs(require 'config.nix-plugins') do
-  vim.cmd.packadd(name)
-end
+-- Load Home Manager's native packages before configuring their plugin scripts.
+vim.cmd.packloadall()
 
 require 'config.plugins.colorschemes'
 vim.cmd.colorscheme 'kanagawa'

@@ -1,4 +1,4 @@
-@import url("@WLOGOUT@/etc/wlogout/style.css");
+@import url("default.css");
 
 @import url("../kanagawa.css");
 
@@ -37,9 +37,9 @@ window button:active {
   outline: none;
 }
 
-#lock { background-image: url("@WLOGOUT_ICONS@/lock.png"); }
-#logout { background-image: url("@WLOGOUT_ICONS@/logout.png"); }
-#suspend { background-image: url("@WLOGOUT_ICONS@/suspend.png"); }
-#hibernate { background-image: url("@WLOGOUT_ICONS@/hibernate.png"); }
-#shutdown { background-image: url("@WLOGOUT_ICONS@/shutdown.png"); }
-#reboot { background-image: url("@WLOGOUT_ICONS@/reboot.png"); }
+#lock { background-image: url("icons/lock.png"); }
+#logout { background-image: url("icons/logout.png"); }
+#suspend { background-image: url("icons/suspend.png"); }
+#hibernate { background-image: url("icons/hibernate.png"); }
+#shutdown { background-image: url("icons/shutdown.png"); }
+#reboot { background-image: url("icons/reboot.png"); }
