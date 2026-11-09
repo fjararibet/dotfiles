@@ -5,10 +5,6 @@
     nixpkgs-sway-working.url = "github:NixOS/nixpkgs/f3d24765175719ad0e816a3d5dcb8e84c11bd842";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
-    nixos-wsl = {
-      url = "github:nix-community/NixOS-WSL";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -103,12 +99,6 @@
     in
     {
       nixosConfigurations = {
-        yunco = mkHost {
-          hostname = "yunco";
-          modules = [
-            inputs.nixos-wsl.nixosModules.default
-          ];
-        };
         huala = mkHost {
           hostname = "huala";
         };
@@ -131,9 +121,6 @@
             ./home/common.nix
             ./home/generic-linux.nix
           ];
-        };
-        yunco = mkHomeConfig {
-          modules = [ ./hosts/yunco/home.nix ];
         };
         huala = mkHomeConfig {
           modules = [ ./hosts/huala/home.nix ];
