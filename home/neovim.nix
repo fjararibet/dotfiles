@@ -38,7 +38,7 @@ in
     initLua = builtins.readFile (paths.config + "/nvim/init.lua");
   };
 
-  home.packages = [ pkgs.go pkgs.gopls pkgs.nil pkgs.tree-sitter pkgs.vscode-langservers-extracted ];
+  home.packages = [ pkgs.go pkgs.gopls pkgs.nil pkgs.tree-sitter pkgs.typescript-language-server pkgs.vscode-langservers-extracted ];
   xdg.configFile = {
     "nvim/lua".source = paths.config + "/nvim/lua";
     "nvim/plugin".source = paths.config + "/nvim/plugin";
