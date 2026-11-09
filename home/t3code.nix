@@ -12,18 +12,6 @@ in
   options.t3code = {
     enable = lib.mkEnableOption "the T3 Code server";
 
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = pkgs.t3code;
-      description = "T3 Code CLI package used by the server and installed for the user.";
-    };
-
-    profileManaged = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Install T3 Code independently in the user's Nix profile instead of the Home Manager closure.";
-    };
-
     profileInstallable = lib.mkOption {
       type = lib.types.str;
       default = "github:limwa/nix-t3code#t3code";
@@ -43,18 +31,16 @@ in
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    home.packages = lib.mkIf (!cfg.profileManaged) [ cfg.package ];
-
-    # Bootstrap once, as the owning user. In profile mode the system closure
+  config = {
+    # Bootstrap once, as the owning user. The system closure
     # contains only this installable string, never the T3 Code package.
-    home.activation.t3codeProfile = lib.mkIf cfg.profileManaged (lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "writeBoundary" ] ''
+    home.activation.t3codeProfile = lib.hm.dag.entryBetween [ "reloadSystemd" ] [ "writeBoundary" ] ''
       if [ ! -x "$HOME/.nix-profile/bin/t3" ]; then
         run ${pkgs.nix}/bin/nix profile add ${lib.escapeShellArg cfg.profileInstallable}
       fi
-    '');
+    '';
 
-    # Nixified `t3 service install`. Run the packaged server directly instead
+    # Nixified `t3 service install`. Run the profile's server directly instead
     # of installing an imperative unit and a self-updating launcher under ~/.t3.
     # Each user gets their own service in their own systemd user manager, so
     # multiple users can run independent instances on one machine (give each a
@@ -63,7 +49,7 @@ in
     # For the service to survive logout and start at boot, the user needs
     # lingering enabled system-side: `users.users.<name>.linger = true` in the
     # NixOS configuration (equivalent to `loginctl enable-linger <name>`).
-    systemd.user.services.t3code = {
+    systemd.user.services.t3code = lib.mkIf cfg.enable {
       Unit = {
         Description = "T3 Code server";
         StartLimitIntervalSec = 300;
@@ -72,7 +58,7 @@ in
 
       Service = {
         Type = "simple";
-        ExecStart = "${if cfg.profileManaged then "${config.home.homeDirectory}/.nix-profile" else cfg.package}/bin/t3 serve --port ${toString cfg.port} --host ${lib.escapeShellArg cfg.host}";
+        ExecStart = "${config.home.homeDirectory}/.nix-profile/bin/t3 serve --port ${toString cfg.port} --host ${lib.escapeShellArg cfg.host}";
         WorkingDirectory = "%h";
         Restart = "always";
         RestartSec = 5;

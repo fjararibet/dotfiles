@@ -4,7 +4,6 @@
     nixpkgs-neovim.url = "github:NixOS/nixpkgs/fd1462031fdee08f65fd0b4c6b64e22239a77870";
     nixpkgs-sway-working.url = "github:NixOS/nixpkgs/f3d24765175719ad0e816a3d5dcb8e84c11bd842";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    t3code.url = "github:limwa/nix-t3code";
 
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
@@ -22,7 +21,6 @@
 
   outputs =
     inputs@{
-      self,
       nixpkgs,
       nixpkgs-unstable,
       home-manager,
@@ -38,8 +36,6 @@
       };
 
       unstableOverlay = final: _prev: {
-        t3code = inputs.t3code.packages.${final.stdenv.hostPlatform.system}.t3code;
-        t3code-desktop = final.t3code;
         unstable = import nixpkgs-unstable {
           inherit (final) config;
           inherit (final.stdenv.hostPlatform) system;
@@ -106,33 +102,6 @@
         };
     in
     {
-      packages = lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (
-        system:
-        let
-          pkgs = import nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-            overlays = [ unstableOverlay ];
-          };
-        in
-        {
-          inherit (pkgs) t3code t3code-desktop;
-        }
-      );
-
-      apps = lib.genAttrs [ "x86_64-linux" "aarch64-linux" ] (system: {
-        t3code = {
-          type = "app";
-          program = "${self.packages.${system}.t3code}/bin/t3";
-          meta.description = "Run the T3 Code CLI";
-        };
-        t3code-desktop = {
-          type = "app";
-          program = "${self.packages.${system}.t3code}/bin/t3code-desktop";
-          meta.description = "Run the T3 Code desktop";
-        };
-      });
-
       nixosConfigurations = {
         yunco = mkHost {
           hostname = "yunco";

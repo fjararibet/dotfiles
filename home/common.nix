@@ -1,7 +1,7 @@
-{ config, lib, pkgs, paths, ... }:
+{ pkgs, paths, ... }:
 
 {
-  imports = [ (paths.home + "/neovim.nix") ];
+  imports = [ (paths.home + "/neovim.nix") (paths.home + "/t3code.nix") ];
 
   home.username = "fjara";
   home.homeDirectory = "/home/fjara";
@@ -30,7 +30,7 @@
     unstable.github-cli
     unstable.claude-code
     unstable.pi-coding-agent
-  ] ++ lib.optionals (!(config.t3code.profileManaged or false)) [ pkgs.t3code ];
+  ];
   programs.zsh = {
     enable = true;
     envExtra = ''

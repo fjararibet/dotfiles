@@ -16,7 +16,6 @@ in {
   ];
 
   t3code.enable = true;
-  t3code.profileManaged = true;
   # Bootstrap stable T3 Code; existing installations are managed with nix profile.
   t3code.profileInstallable = "github:limwa/nix-t3code#t3code";
 
