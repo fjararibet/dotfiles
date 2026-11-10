@@ -40,6 +40,10 @@ in
 
   home.packages = [ pkgs.go pkgs.gopls pkgs.nil pkgs.tree-sitter pkgs.typescript-language-server pkgs.vscode-langservers-extracted ];
   xdg.configFile = {
+    "nvim/init.lua".force = true;
+    "nvim/lua".force = true;
+    "nvim/plugin".force = true;
+    "nvim/after".force = true;
     "nvim/lua".source = paths.config + "/nvim/lua";
     "nvim/plugin".source = paths.config + "/nvim/plugin";
     "nvim/after".source = paths.config + "/nvim/after";

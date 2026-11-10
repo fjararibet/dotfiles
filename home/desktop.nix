@@ -25,14 +25,20 @@ in
       "application/xhtml+xml" = [ "firefox.desktop" ];
       "x-scheme-handler/http" = [ "firefox.desktop" ];
       "x-scheme-handler/https" = [ "firefox.desktop" ];
+      "x-scheme-handler/ferdium" = [ "ferdium.desktop" ];
+      "x-scheme-handler/discord" = [ "vesktop.desktop" ];
       "x-scheme-handler/discord-1216669957799018608" = [ "discord-1216669957799018608.desktop" ];
       "x-scheme-handler/claude-cli" = [ "claude-code-url-handler.desktop" ];
       "x-scheme-handler/t3code" = [ "com.t3tools.T3Code.desktop" ];
       "x-scheme-handler/codex" = [ "chatgpt.desktop" ];
     };
+    associations.added."x-scheme-handler/ferdium" = [ "ferdium.desktop" ];
   };
 
   home.sessionVariables.BROWSER = "firefox";
+
+  xdg.configFile."mimeapps.list".force = true;
+  xdg.dataFile."applications/mimeapps.list".force = true;
 
   home.packages = with pkgs; [
     displayMenu
