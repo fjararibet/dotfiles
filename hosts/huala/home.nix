@@ -12,12 +12,12 @@ in {
   imports = [
     (paths.home + "/common.nix")
     (paths.home + "/desktop.nix")
-    (paths.home + "/t3code.nix")
   ];
 
-  t3code.enable = true;
-  # Bootstrap stable T3 Code; existing installations are managed with nix profile.
-  t3code.profileInstallable = "github:limwa/nix-t3code#t3code";
+  programs.t3code = {
+    enable = true;
+    package = pkgs.unstable.t3code;
+  };
 
   # Keep Rex independently updatable through `nix profile`; restart after upgrades.
   systemd.user.services.rex = {

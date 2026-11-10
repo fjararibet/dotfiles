@@ -111,9 +111,7 @@
       };
 
       homeManagerModules.default = ./home/common.nix;
-      homeManagerModules.t3code = ./home/t3code.nix;
       homeModules.default = ./home/common.nix;
-      homeModules.t3code = ./home/t3code.nix;
 
       homeConfigurations = {
         fjara = mkHomeConfig {

@@ -35,7 +35,7 @@
     curl
   ];
 
-  # t3code is configured per user via the home-manager module (home/t3code.nix).
+  # T3 Code is configured per user via programs.t3code in Home Manager.
   users.users.fjara.linger = true;
 
   # For more information, see `man configuration.nix` 

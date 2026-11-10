@@ -3,8 +3,10 @@
 {
   imports = [
     (paths.home + "/common.nix")
-    (paths.home + "/t3code.nix")
   ];
 
-  t3code.enable = true;
+  programs.t3code = {
+    enable = true;
+    package = pkgs.unstable.t3code;
+  };
 }

@@ -63,7 +63,7 @@ in
     curl
   ];
 
-  # t3code is configured per user via the home-manager module (home/t3code.nix);
+  # T3 Code is configured per user via programs.t3code in Home Manager.
   # the user service survives logout because of lingering.
   users.users.fjara.linger = true;
 }

@@ -1,7 +1,7 @@
 { pkgs, paths, ... }:
 
 {
-  imports = [ (paths.home + "/neovim.nix") (paths.home + "/t3code.nix") ];
+  imports = [ (paths.home + "/neovim.nix") ];
 
   home.username = "fjara";
   home.homeDirectory = "/home/fjara";
