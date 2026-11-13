@@ -4,6 +4,7 @@
     nixpkgs-neovim.url = "github:NixOS/nixpkgs/fd1462031fdee08f65fd0b4c6b64e22239a77870";
     nixpkgs-sway-working.url = "github:NixOS/nixpkgs/f3d24765175719ad0e816a3d5dcb8e84c11bd842";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nix-homebrew.url = "github:zhaofengli/nix-homebrew";
 
     nix-darwin = {
       url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
@@ -107,6 +108,7 @@
         specialArgs = { inherit inputs paths; };
         modules = [
           ./hosts/loica/configuration.nix
+          inputs.nix-homebrew.darwinModules.nix-homebrew
           home-manager.darwinModules.home-manager
           {
             nixpkgs.config.allowUnfree = true;

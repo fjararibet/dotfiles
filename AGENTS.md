@@ -25,3 +25,26 @@ Each host needs one manual rebuild to install the exemption. If `sudo -n` report
 that a password is required, report that activation needs this manual bootstrap;
 do not ask for a password in chat or store credentials. Report build and activation
 results accurately, including when changes have not been activated.
+
+# macOS builds and activation
+
+For requested configuration changes on `loica`, agents are authorized to build
+and apply the nix-darwin flake without separate confirmation. Respect explicit
+requests to only build or leave changes unapplied.
+
+From `/Users/fjara/dotfiles`, build without sudo:
+
+```sh
+nix build .#darwinConfigurations.loica.system
+```
+
+After a successful build, activate using the exact passwordless command:
+
+```sh
+sudo -n /run/current-system/sw/bin/darwin-rebuild switch --flake /Users/fjara/dotfiles#loica
+```
+
+The exemption is for `fjara`, runs as root, and matches only this executable and
+these arguments. Additional flags are not covered. The first activation that
+installs the exemption requires authenticated sudo. Report build and activation
+results accurately.
