@@ -1,10 +1,10 @@
-{ pkgs, paths, ... }:
+{ lib, pkgs, paths, ... }:
 
 {
   imports = [ (paths.home + "/neovim.nix") ];
 
   home.username = "fjara";
-  home.homeDirectory = "/home/fjara";
+  home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/fjara" else "/home/fjara";
   programs.home-manager.enable = true;
   home.stateVersion = "26.05";
   home.packages = with pkgs; [
@@ -23,14 +23,13 @@
     unzip
     delta
     ripgrep
-    wl-clipboard
     tmux
     unstable.codex
     unstable.opencode
     unstable.github-cli
     unstable.claude-code
     unstable.pi-coding-agent
-  ];
+  ] ++ lib.optionals pkgs.stdenv.isLinux [ pkgs.wl-clipboard ];
   programs.zsh = {
     enable = true;
     envExtra = ''

@@ -11,4 +11,4 @@ bindkey -e
 bindkey -r "^[."
 bindkey -r "^[,"
 
-export LEDGER_FILE=/home/fjara/finance/personal.journal
+export LEDGER_FILE="$HOME/finance/personal.journal"

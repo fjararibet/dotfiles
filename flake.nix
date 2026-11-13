@@ -5,6 +5,11 @@
     nixpkgs-sway-working.url = "github:NixOS/nixpkgs/f3d24765175719ad0e816a3d5dcb8e84c11bd842";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
 
+    nix-darwin = {
+      url = "github:nix-darwin/nix-darwin/nix-darwin-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -98,6 +103,22 @@
         };
     in
     {
+      darwinConfigurations.loica = inputs.nix-darwin.lib.darwinSystem {
+        specialArgs = { inherit inputs paths; };
+        modules = [
+          ./hosts/loica/configuration.nix
+          home-manager.darwinModules.home-manager
+          {
+            nixpkgs.config.allowUnfree = true;
+            nixpkgs.overlays = [ unstableOverlay ttypOverlay ];
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = { inherit inputs paths; };
+            home-manager.users.fjara = import ./hosts/loica/home.nix;
+          }
+        ];
+      };
+
       nixosConfigurations = {
         huala = mkHost {
           hostname = "huala";
