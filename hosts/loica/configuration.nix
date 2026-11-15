@@ -24,7 +24,11 @@
 
   homebrew = {
     enable = true;
-    casks = [ "tunnelblick" ];
+    masApps = {
+      Amphetamine = 937984704;
+    };
+    # Keep unmanaged App Store apps when Homebrew runs bundle cleanup.
+    onActivation.cleanup = "none";
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
