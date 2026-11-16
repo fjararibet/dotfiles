@@ -21,14 +21,9 @@
   };
 
   outputs =
-    inputs@{
-      nixpkgs,
-      nixpkgs-unstable,
-      home-manager,
-      ...
-    }:
+    inputs@{ self, ... }:
     let
-      lib = nixpkgs.lib;
+      lib = inputs.nixpkgs.lib;
 
       paths = {
         config = ./config;
@@ -37,7 +32,7 @@
       };
 
       unstableOverlay = final: _prev: {
-        unstable = import nixpkgs-unstable {
+        unstable = import inputs.nixpkgs-unstable {
           inherit (final) config;
           inherit (final.stdenv.hostPlatform) system;
         };
@@ -50,8 +45,8 @@
           system ? "x86_64-linux",
           modules ? [ ],
         }:
-        home-manager.lib.homeManagerConfiguration {
-          pkgs = import nixpkgs {
+        inputs.home-manager.lib.homeManagerConfiguration {
+          pkgs = import inputs.nixpkgs {
             inherit system;
             config.allowUnfree = true;
             overlays = [
@@ -89,7 +84,7 @@
                 ttypOverlay
               ];
             }
-            home-manager.nixosModules.home-manager
+            inputs.home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -108,7 +103,7 @@
         modules = [
           ./hosts/loica/configuration.nix
           inputs.nix-homebrew.darwinModules.nix-homebrew
-          home-manager.darwinModules.home-manager
+          inputs.home-manager.darwinModules.home-manager
           {
             nixpkgs.config.allowUnfree = true;
             nixpkgs.overlays = [ unstableOverlay ttypOverlay ];
@@ -132,16 +127,7 @@
         };
       };
 
-      homeManagerModules.default = ./home/common.nix;
-      homeModules.default = ./home/common.nix;
-
       homeConfigurations = {
-        fjara = mkHomeConfig {
-          modules = [
-            ./home/common.nix
-            ./home/generic-linux.nix
-          ];
-        };
         huala = mkHomeConfig {
           modules = [ ./hosts/huala/home.nix ];
         };

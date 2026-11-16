@@ -49,11 +49,38 @@ do
       })
 
 
+      local flakePath = vim.fn.expand('~/dotfiles')
+      local host = vim.fn.hostname():match('^[^.]+')
+      local flake = '(builtins.getFlake ' .. vim.json.encode(flakePath) .. ')'
+      local isDarwin = vim.uv.os_uname().sysname == 'Darwin'
+      local systemConfig = flake
+        .. (isDarwin and '.darwinConfigurations.' or '.nixosConfigurations.')
+        .. vim.json.encode(host)
+      local homeOptions = isDarwin
+        and (systemConfig .. '.options.home-manager.users.type.getSubOptions []')
+        or (flake .. '.homeConfigurations.' .. vim.json.encode(host) .. '.options')
+
       local servers = {
         ty = {},
         clangd = {},
         gopls = {},
-        nil_ls = {},
+        nixd = {
+          settings = {
+            nixd = {
+              nixpkgs = {
+                expr = systemConfig .. '.pkgs',
+              },
+              options = {
+                system = {
+                  expr = systemConfig .. '.options',
+                },
+                home_manager = {
+                  expr = homeOptions,
+                },
+              },
+            },
+          },
+        },
         ts_ls = {},
         jsonls = {
           capabilities = require('cmp_nvim_lsp').default_capabilities(),

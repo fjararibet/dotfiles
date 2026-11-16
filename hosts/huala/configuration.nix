@@ -63,7 +63,7 @@ in
     curl
   ];
 
-  # T3 Code is configured per user via programs.t3code in Home Manager.
+  # Keep profile-installed user services running after logout.
   # the user service survives logout because of lingering.
   users.users.fjara.linger = true;
 }
