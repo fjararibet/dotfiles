@@ -3,9 +3,10 @@
 {
   imports = [ (paths.home + "/common.nix") ];
 
-  home.packages = [
-    pkgs.awscli2
-    pkgs.obsidian
+  home.packages = with pkgs; [
+    awscli2
+    spotify
+    obsidian
   ];
 
   home.activation.installKeyboardLayout = lib.hm.dag.entryAfter [ "linkGeneration" ] (
@@ -41,6 +42,36 @@
         HostName = "32.190.129.202";
         User = "fjara";
         IdentityFile = "~/.ssh/id_ed25519";
+        IdentitiesOnly = true;
+      };
+      "mlc-gps 184.198.77.19" = {
+        HostName = "184.198.77.19";
+        User = "ubuntu";
+        IdentityFile = "~/.ssh/id_ed25519";
+        IdentitiesOnly = true;
+      };
+      "qa2-cacapp 3.136.4.245" = {
+        HostName = "3.136.4.245";
+        User = "root";
+        IdentityFile = "~/.ssh/rutasur.pem";
+        IdentitiesOnly = true;
+      };
+      "qa2-cacdb 18.223.148.47" = {
+        HostName = "18.223.148.47";
+        User = "root";
+        IdentityFile = "~/.ssh/rutasur.pem";
+        IdentitiesOnly = true;
+      };
+      "qa2-crmfe 3.17.122.214" = {
+        HostName = "3.17.122.214";
+        User = "root";
+        IdentityFile = "~/.ssh/bocrm.pem";
+        IdentitiesOnly = true;
+      };
+      "bo-cacsv-qa 13.58.8.95" = {
+        HostName = "13.58.8.95";
+        User = "root";
+        IdentityFile = "~/.ssh/bosv.pem";
         IdentitiesOnly = true;
       };
     };
