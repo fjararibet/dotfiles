@@ -16,8 +16,7 @@ pkill -f "waybar -c" || true
 nohup waybar -c "$WAYBAR_CFG" >/dev/null 2>&1 &
 
 # Reload wallpaper.
-pkill -f "swaybg -i" || true
-nohup swaybg -i /home/fjara/dotfiles/wallpapers/city_night.jpg -m fill >/dev/null 2>&1 &
+nohup /home/fjara/dotfiles/config/niri/backdrop.sh desktop /home/fjara/dotfiles/wallpapers/city_night.jpg >/dev/null 2>&1 &
 
 # Reload the overview backdrop.
 pkill -f "awww-daemon --namespace backdrop" || true

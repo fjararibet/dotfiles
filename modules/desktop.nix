@@ -1,24 +1,5 @@
-{ config, lib, pkgs, inputs, ... }:
-let
-  swayPkgs = inputs.nixpkgs-sway-working.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-  lySessionWrapper = pkgs.writeShellScript "ly-session-wrapper" ''
-    case "$*" in
-      *sway*)
-        export XDG_CURRENT_DESKTOP=sway
-        export XDG_SESSION_DESKTOP=sway
-        ;;
-    esac
-
-    exec ${config.services.displayManager.sessionData.wrapper} "$@"
-  '';
-in {
-  nixpkgs.overlays = [
-    (_final: _prev: {
-      sway = swayPkgs.sway;
-      sway-unwrapped = swayPkgs.sway-unwrapped;
-    })
-  ];
-
+{ lib, pkgs, ... }:
+{
   hardware.graphics.enable = true;
 
   # Required by OpenTabletDriver
@@ -68,42 +49,26 @@ in {
   programs.firefox.enable = true;
   programs.dconf.enable = true;
 
-  programs.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    extraPackages = with pkgs; [
-      adwaita-icon-theme
-      awww
-      slurp
-      sway-contrib.grimshot
-      swayr
-      wlogout
-      waybar
-      swaybg
-      swaylock
-    ];
-  };
-  programs.sway.xwayland.enable = true;
   programs.niri.enable = true;
   programs.hyprlock.enable = true;
   # Niri starts this on demand to support X11 applications such as Steam.
-  environment.systemPackages = [ pkgs.xwayland-satellite ];
+  environment.systemPackages = with pkgs; [
+    adwaita-icon-theme
+    awww
+    wlogout
+    waybar
+    xwayland-satellite
+  ];
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.ly.enableGnomeKeyring = true;
   xdg.portal = {
     enable = true;
     config = {
       common.default = [ "gtk" ];
-      sway.default = lib.mkForce [ "wlr" "gtk" ];
       niri.default = [ "gnome" "gtk" ];
-    };
-    wlr.settings.screencast = {
-      chooser_type = "simple";
-      chooser_cmd = ''${pkgs.slurp}/bin/slurp -f 'Monitor: %o' -or'';
     };
     extraPortals = with pkgs; [
       xdg-desktop-portal-gtk
-      xdg-desktop-portal-wlr
       xdg-desktop-portal-gnome
     ];
   };
@@ -111,7 +76,6 @@ in {
     enable = true;
     settings = {
       session_log = "null";
-      setup_cmd = "${lySessionWrapper}";
     };
   };
   programs.ssh.startAgent = true;

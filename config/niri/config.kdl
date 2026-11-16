@@ -114,7 +114,7 @@ layer-rule {
     place-within-backdrop true
 }
 
-spawn-at-startup "swaybg" "-i" "/home/fjara/dotfiles/wallpapers/city_night.jpg" "-m" "fill"
+spawn-at-startup "/home/fjara/dotfiles/config/niri/backdrop.sh" "desktop" "/home/fjara/dotfiles/wallpapers/city_night.jpg"
 spawn-at-startup "/home/fjara/dotfiles/config/niri/backdrop.sh"
 spawn-at-startup "waybar" "-c" "/home/fjara/.config/niri/waybar.jsonc"
 spawn-at-startup "firefox" "-P" "default"

@@ -109,22 +109,6 @@
         "type": "github"
       }
     },
-    "nixpkgs-sway-working": {
-      "locked": {
-        "lastModified": 1779664186,
-        "narHash": "sha256-504rHKmcN/6UwWJXTrIXKsSg+Vys8xN4hM5B+4KkRfM=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f3d24765175719ad0e816a3d5dcb8e84c11bd842",
-        "type": "github"
-      },
-      "original": {
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "f3d24765175719ad0e816a3d5dcb8e84c11bd842",
-        "type": "github"
-      }
-    },
     "nixpkgs-unstable": {
       "locked": {
         "lastModified": 1793540411,
@@ -198,7 +182,6 @@
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
         "nixpkgs-neovim": "nixpkgs-neovim",
-        "nixpkgs-sway-working": "nixpkgs-sway-working",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "ttyp": "ttyp"
       }

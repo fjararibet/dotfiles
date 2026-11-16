@@ -98,22 +98,6 @@
   services.gnome.gcr-ssh-agent.enable = false;
   programs.ssh.startAgent = true;
 
-  # Needed for Sway on this laptop's NVIDIA GPU.
-  programs.sway = {
-    extraOptions = [ "--unsupported-gpu" ];
-    extraPackages = with pkgs; [
-      bibata-cursors
-      brightnessctl
-      dmenu
-      grim
-      pulseaudio
-      swayidle
-      swaylock
-      wmenu
-      wofi
-    ];
-  };
-
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];

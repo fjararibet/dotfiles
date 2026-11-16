@@ -130,17 +130,16 @@ in
       PartOf = [ "graphical-session.target" ];
       ConditionEnvironment = "WAYLAND_DISPLAY";
     };
-    elephant.Install.WantedBy = lib.mkForce [ "sway-session.target" "niri.service" ];
+    elephant.Install.WantedBy = lib.mkForce [ "niri.service" ];
     elephant.Service.Environment = [ "XDG_SESSION_TYPE=wayland" ];
     walker.Unit = {
       After = [ "graphical-session.target" ];
       PartOf = [ "graphical-session.target" ];
       ConditionEnvironment = "WAYLAND_DISPLAY";
     };
-    walker.Install.WantedBy = lib.mkForce [ "sway-session.target" "niri.service" ];
+    walker.Install.WantedBy = lib.mkForce [ "niri.service" ];
   };
   xdg.configFile.alacritty.source = paths.config + "/alacritty";
-  xdg.configFile.sway.source = paths.config + "/sway";
   xdg.configFile."niri/config.kdl".source = paths.config + "/niri/config.kdl";
   xdg.configFile."niri/waybar.jsonc".source = paths.config + "/niri/waybar.jsonc";
   xdg.configFile.waybar.source = paths.config + "/waybar";
