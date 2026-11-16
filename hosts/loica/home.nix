@@ -30,11 +30,19 @@
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
-    settings."orcen-jetspeed 3.135.179.190" = {
-      HostName = "3.135.179.190";
-      User = "ec2-user";
-      IdentityFile = "~/.ssh/globeit.pem";
-      IdentitiesOnly = true;
+    settings = {
+      "orcen-jetspeed 3.135.179.190" = {
+        HostName = "3.135.179.190";
+        User = "ec2-user";
+        IdentityFile = "~/.ssh/globeit.pem";
+        IdentitiesOnly = true;
+      };
+      "coipo 32.190.129.202" = {
+        HostName = "32.190.129.202";
+        User = "fjara";
+        IdentityFile = "~/.ssh/id_ed25519";
+        IdentitiesOnly = true;
+      };
     };
   };
 }
