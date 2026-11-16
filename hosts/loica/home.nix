@@ -3,7 +3,10 @@
 {
   imports = [ (paths.home + "/common.nix") ];
 
-  home.packages = [ pkgs.awscli2 ];
+  home.packages = [
+    pkgs.awscli2
+    pkgs.obsidian
+  ];
 
   home.activation.installKeyboardLayout = lib.hm.dag.entryAfter [ "linkGeneration" ] (
     let
