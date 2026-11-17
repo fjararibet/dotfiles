@@ -7,6 +7,7 @@
     awscli2
     spotify
     obsidian
+    betterdisplay
   ];
 
   home.activation.installKeyboardLayout = lib.hm.dag.entryAfter [ "linkGeneration" ] (

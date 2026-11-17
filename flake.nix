@@ -40,51 +40,27 @@
 
       ttypOverlay = inputs.ttyp.overlays.default;
 
-      mkHomeConfig =
-        {
-          system ? "x86_64-linux",
-          modules ? [ ],
-        }:
-        inputs.home-manager.lib.homeManagerConfiguration {
-          pkgs = import inputs.nixpkgs {
-            inherit system;
-            config.allowUnfree = true;
-            overlays = [
-              unstableOverlay
-              ttypOverlay
-            ];
-          };
-
-          extraSpecialArgs = {
-            inherit inputs paths;
-          };
-
-          modules = modules;
-        };
-
       mkHost =
         {
           hostname,
           system ? "x86_64-linux",
-          modules ? [ ],
-          specialArgs ? { },
+          mkSystem,
+          platformModules,
         }:
-        lib.nixosSystem {
-          inherit system;
-
+        mkSystem {
           specialArgs = {
             inherit inputs paths;
-          }
-          // specialArgs;
+          };
 
-          modules = modules ++ [
+          modules = [
             {
+              nixpkgs.hostPlatform = system;
+              nixpkgs.config.allowUnfree = true;
               nixpkgs.overlays = [
                 unstableOverlay
                 ttypOverlay
               ];
             }
-            inputs.home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -94,49 +70,26 @@
               home-manager.users.fjara = import ./hosts/${hostname}/home.nix;
             }
             ./hosts/${hostname}/configuration.nix
-          ];
+          ] ++ platformModules;
         };
     in
     {
-      darwinConfigurations.loica = inputs.nix-darwin.lib.darwinSystem {
-        specialArgs = { inherit inputs paths; };
-        modules = [
-          ./hosts/loica/configuration.nix
-          inputs.nix-homebrew.darwinModules.nix-homebrew
+      darwinConfigurations.loica = mkHost {
+        hostname = "loica";
+        system = "aarch64-darwin";
+        mkSystem = inputs.nix-darwin.lib.darwinSystem;
+        platformModules = [
           inputs.home-manager.darwinModules.home-manager
-          {
-            nixpkgs.config.allowUnfree = true;
-            nixpkgs.overlays = [ unstableOverlay ttypOverlay ];
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = { inherit inputs paths; };
-            home-manager.users.fjara = import ./hosts/loica/home.nix;
-          }
+          inputs.nix-homebrew.darwinModules.nix-homebrew
         ];
       };
 
-      nixosConfigurations = {
-        huala = mkHost {
-          hostname = "huala";
-        };
-        pudu = mkHost {
-          hostname = "pudu";
-        };
-        fragata = mkHost {
-          hostname = "fragata";
-        };
-      };
-
-      homeConfigurations = {
-        huala = mkHomeConfig {
-          modules = [ ./hosts/huala/home.nix ];
-        };
-        pudu = mkHomeConfig {
-          modules = [ ./hosts/pudu/home.nix ];
-        };
-        fragata = mkHomeConfig {
-          modules = [ ./hosts/fragata/home.nix ];
-        };
-      };
+      nixosConfigurations = lib.genAttrs [ "huala" "pudu" "fragata" ] (
+        hostname: mkHost {
+          inherit hostname;
+          mkSystem = lib.nixosSystem;
+          platformModules = [ inputs.home-manager.nixosModules.home-manager ];
+        }
+      );
     };
 }

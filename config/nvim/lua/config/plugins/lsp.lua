@@ -56,9 +56,7 @@ do
       local systemConfig = flake
         .. (isDarwin and '.darwinConfigurations.' or '.nixosConfigurations.')
         .. vim.json.encode(host)
-      local homeOptions = isDarwin
-        and (systemConfig .. '.options.home-manager.users.type.getSubOptions []')
-        or (flake .. '.homeConfigurations.' .. vim.json.encode(host) .. '.options')
+      local homeOptions = systemConfig .. '.options.home-manager.users.type.getSubOptions []'
 
       local servers = {
         ty = {},
