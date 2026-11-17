@@ -15,3 +15,7 @@ export LEDGER_FILE="$HOME/finance/personal.journal"
 if [ -n "$REX_BIN_DIR" ]; then
     export PATH="$REX_BIN_DIR:$PATH"
 fi
+
+if (( $+commands[rex] )); then
+    source <(rex completion zsh)
+fi
