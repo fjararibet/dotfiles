@@ -14,6 +14,11 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Backport T3 Code's user service without updating Home Manager for every host.
+    home-manager-t3code = {
+      url = "file+https://raw.githubusercontent.com/nix-community/home-manager/2f5ab4a8feca1441f3146bec67d7f0f07c3cffee/modules/programs/t3code.nix";
+      flake = false;
+    };
     ttyp = {
       url = "github:fjararibet/ttyp";
       inputs.nixpkgs.follows = "nixpkgs";

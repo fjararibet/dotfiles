@@ -38,6 +38,18 @@
         "type": "github"
       }
     },
+    "home-manager-t3code": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-9ORv5Pw/IBZvKg7PYEK/fqNGLKxHuxnnUJKhgkvNCOQ=",
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/nix-community/home-manager/2f5ab4a8feca1441f3146bec67d7f0f07c3cffee/modules/programs/t3code.nix"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://raw.githubusercontent.com/nix-community/home-manager/2f5ab4a8feca1441f3146bec67d7f0f07c3cffee/modules/programs/t3code.nix"
+      }
+    },
     "nix-darwin": {
       "inputs": {
         "nixpkgs": [
@@ -178,6 +190,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "home-manager-t3code": "home-manager-t3code",
         "nix-darwin": "nix-darwin",
         "nix-homebrew": "nix-homebrew",
         "nixpkgs": "nixpkgs",
