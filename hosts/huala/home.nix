@@ -26,21 +26,24 @@ in {
     server.enable = true;
   };
 
-  xdg.desktopEntries."com.t3tools.T3Code" = {
-    name = "T3 Code (Alpha)";
+  # Manage the user-local entry so T3 Code cannot replace it with its own launcher.
+  xdg.dataFile."applications/com.t3tools.T3Code.desktop".source = "${pkgs.makeDesktopItem {
+    name = "com.t3tools.T3Code";
+    desktopName = "T3 Code (Alpha)";
     comment = "Minimal web GUI for coding agents";
-    exec = "${profileBin}/t3code-desktop %U";
+    exec = "env T3CODE_HOME=${config.home.homeDirectory}/.t3-desktop ${profileBin}/t3code-desktop %U";
     icon = "t3code";
     terminal = false;
     categories = [ "Development" ];
-    mimeType = [ "x-scheme-handler/t3code" ];
-    settings.StartupWMClass = "t3code";
-  };
+    mimeTypes = [ "x-scheme-handler/t3code" ];
+    extraConfig.StartupWMClass = "t3code";
+  }}/share/applications/com.t3tools.T3Code.desktop";
 
   # Keep profile-installed provider CLIs available to the upstream unit.
   systemd.user.services.t3code.Service = {
     WorkingDirectory = "%h";
     Environment = [
+      "T3CODE_HOME=${config.home.homeDirectory}/.t3"
       "PATH=${profileBin}:/etc/profiles/per-user/${config.home.username}/bin:/run/current-system/sw/bin"
     ];
   };
