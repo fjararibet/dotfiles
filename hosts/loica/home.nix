@@ -29,50 +29,68 @@
     ''
   );
 
+  xdg.configFile."rex/init.lua".source = paths.config + "/rex/init.lua";
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.ssh = {
     enable = true;
     enableDefaultConfig = false;
     settings = {
-      "orcen-jetspeed 3.135.179.190" = {
+      "orcen-jetspeed" = {
         HostName = "3.135.179.190";
         User = "ec2-user";
         IdentityFile = "~/.ssh/globeit.pem";
         IdentitiesOnly = true;
       };
-      "coipo 32.190.129.202" = {
+      "coipo" = {
         HostName = "32.190.129.202";
         User = "fjara";
         IdentityFile = "~/.ssh/id_ed25519";
         IdentitiesOnly = true;
       };
-      "mlc-gps 184.198.77.19" = {
+      "mlc-gps" = {
         HostName = "184.198.77.19";
         User = "ubuntu";
         IdentityFile = "~/.ssh/id_ed25519";
         IdentitiesOnly = true;
       };
-      "qa2-cacapp 3.136.4.245" = {
+      "qa2-cacapp" = {
         HostName = "3.136.4.245";
         User = "root";
         IdentityFile = "~/.ssh/rutasur.pem";
         IdentitiesOnly = true;
       };
-      "qa2-cacdb 18.223.148.47" = {
+      "qa2-cacdb" = {
         HostName = "18.223.148.47";
         User = "root";
         IdentityFile = "~/.ssh/rutasur.pem";
         IdentitiesOnly = true;
       };
-      "qa2-crmfe 3.17.122.214" = {
+      "qa2-crmfe" = {
         HostName = "3.17.122.214";
         User = "root";
         IdentityFile = "~/.ssh/bocrm.pem";
         IdentitiesOnly = true;
       };
-      "bo-cacsv-qa 13.58.8.95" = {
+      "bo-cacsv-qa" = {
         HostName = "13.58.8.95";
         User = "root";
         IdentityFile = "~/.ssh/bosv.pem";
+        IdentitiesOnly = true;
+      };
+      "srv-crm-app" = {
+        HostName = "172.16.48.233";
+        IdentityFile = "~/.ssh/id_ed25519";
+        User = "fjara";
+      };
+      "orcen-fe-dev" = {
+        HostName = "107.22.43.104";
+        User = "ubuntu";
+        IdentityFile = "~/.ssh/orcendev.pem";
         IdentitiesOnly = true;
       };
     };
