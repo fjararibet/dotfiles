@@ -52,6 +52,7 @@ in {
     qbittorrent
     cloudflared
     zapzapWayland
+    r2modman
     unstable.osu-lazer-bin
     unstable.google-cloud-sdk
   ];
