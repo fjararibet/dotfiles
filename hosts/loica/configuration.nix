@@ -27,6 +27,7 @@
     casks = [
       "tunnelblick"
       "sanesidebuttons"
+      "bettermouse"
     ];
     masApps = {
       Amphetamine = 937984704;

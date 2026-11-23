@@ -35,6 +35,7 @@ in
       nvim-treesitter.withAllGrammars
       nvim-treesitter-textobjects
     ];
+    extraWrapperArgs = [ "--set" "NVIM_NIXPKGS_SOURCE" "${inputs.nixpkgs.outPath}" ];
     initLua = builtins.readFile (paths.config + "/nvim/init.lua");
   };
 
