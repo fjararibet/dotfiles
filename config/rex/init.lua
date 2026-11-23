@@ -40,11 +40,67 @@ rex.action{
       return
     end
 
-    assert(rex.session.new_window{
+    rex.session.new_window{
       layout = rex.layout.block{
         flavor = "com.superlogical.terminal.shell",
         options = { shell = "none", command = { "/usr/bin/ssh", host } },
       },
+    }
+  end,
+}
+
+local projects_path = os.getenv("HOME") .. "/projects"
+
+local function projects()
+  local result, err = rex.exec{
+    "/usr/bin/find", "-L", projects_path,
+    "-mindepth", "1", "-maxdepth", "1", "-type", "d", "-print0",
+  }
+  if not result or not result.ok then
+    error(err or result.stderr)
+  end
+
+  local items = {}
+  for path in result.stdout:gmatch("([^%z]+)%z") do
+    local name = path:sub(#projects_path + 2)
+    table.insert(items, { id = name, icon = "folder" })
+  end
+  return items
+end
+
+rex.action{
+  name = "open_project",
+  title = "Open Project",
+  run = function()
+    local project, reason = rex.ui.pick{
+      title = "Open Project",
+      placeholder = "Filter Projects",
+      items = projects(),
+    }
+    if not project then
+      if reason ~= "cancelled" then rex.log("warn", "Project picker: " .. reason) end
+      return
+    end
+
+    local result, err = rex.call("session.list")
+    for _, session in ipairs(result.sessions or {}) do
+      if session.label == project then
+        rex.client.queue("session.select", { session_id = session.session_id })
+        return
+      end
+    end
+
+    local session, create_err = rex.call("session.create", {
+      label = project,
+      initial_windows = {
+        {
+          layout = rex.layout.block{
+            flavor = "com.superlogical.terminal.shell",
+            options = { cwd = projects_path .. "/" .. project },
+          },
+        },
+      },
     })
+    rex.client.queue("session.select", { session_id = session.session_id })
   end,
 }
