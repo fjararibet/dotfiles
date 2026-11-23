@@ -82,16 +82,51 @@
         IdentityFile = "~/.ssh/bosv.pem";
         IdentitiesOnly = true;
       };
-      "srv-crm-app" = {
-        HostName = "172.16.48.233";
-        IdentityFile = "~/.ssh/id_ed25519";
-        User = "fjara";
-      };
       "orcen-fe-dev" = {
         HostName = "107.22.43.104";
         User = "ubuntu";
         IdentityFile = "~/.ssh/orcendev.pem";
         IdentitiesOnly = true;
+      };
+      "srv-cac-app" = {
+        HostName = "172.16.48.231";
+        IdentityFile = "~/.ssh/id_ed25519";
+        User = "fjara";
+      };
+      "srv-cac-db" = {
+        HostName = "172.16.48.230";
+        IdentityFile = "~/.ssh/id_ed25519";
+        User = "fjara";
+      };
+      "srv-cac-ops" = {
+        HostName = "172.16.48.234";
+        IdentityFile = "~/.ssh/id_ed25519";
+        User = "fjara";
+      };
+      "srv-crm-db" = {
+        HostName = "172.16.48.232";
+        IdentityFile = "~/.ssh/id_ed25519";
+        User = "fjara";
+      };
+      "srv-crm-app" = {
+        HostName = "172.16.48.233";
+        IdentityFile = "~/.ssh/id_ed25519";
+        User = "fjara";
+      };
+      "srv-sv-db" = {
+        HostName = "172.16.48.246";
+        IdentityFile = "~/.ssh/id_ed25519";
+        User = "fjara";
+      };
+      "srv-sv-app1" = {
+        HostName = "172.16.48.135";
+        IdentityFile = "~/.ssh/id_ed25519";
+        User = "fjara";
+      };
+      "bo-cac-sftp" = {
+        HostName = "10.255.246.215";
+        IdentityFile = "~/.ssh/id_ed25519";
+        User = "fjara";
       };
     };
   };
