@@ -8,6 +8,8 @@
     spotify
     obsidian
     betterdisplay
+    unstable.paseo-desktop
+    unstable.zapfast
   ];
 
   home.activation.installKeyboardLayout = lib.hm.dag.entryAfter [ "linkGeneration" ] (
