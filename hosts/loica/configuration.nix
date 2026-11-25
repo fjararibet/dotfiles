@@ -30,7 +30,7 @@
     masApps = {
       Amphetamine = 937984704;
     };
-    onActivation.cleanup = "zap";
+    onActivation.cleanup = "none";
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
