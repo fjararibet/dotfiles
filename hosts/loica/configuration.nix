@@ -29,8 +29,9 @@
     ];
     masApps = {
       Amphetamine = 937984704;
+      "Windows App" = 1295203466;
     };
-    onActivation.cleanup = "none";
+    onActivation.cleanup = "zap";
   };
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
