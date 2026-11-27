@@ -1,6 +1,7 @@
 { config, inputs, pkgs, paths, ... }:
 let
   profileBin = "${config.home.homeDirectory}/.nix-profile/bin";
+  providerPath = "PATH=${profileBin}:/etc/profiles/per-user/${config.home.username}/bin:/run/current-system/sw/bin";
   # r2modman calls steam -applaunch synchronously from Electron's main process.
   r2modmanSteam = pkgs.writeShellScriptBin "steam" ''
     if [[ "$1" == -applaunch ]]; then
@@ -60,8 +61,19 @@ in {
     WorkingDirectory = "%h";
     Environment = [
       "T3CODE_HOME=${config.home.homeDirectory}/.t3"
-      "PATH=${profileBin}:/etc/profiles/per-user/${config.home.username}/bin:/run/current-system/sw/bin"
+      providerPath
     ];
+  };
+
+  systemd.user.services.paseo = {
+    Unit.Description = "Paseo daemon";
+    Service = {
+      ExecStart = "${pkgs.unstable.paseo}/bin/paseo daemon run";
+      Environment = [ providerPath ];
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+    Install.WantedBy = [ "default.target" ];
   };
 
   home.packages = with pkgs; [
@@ -71,5 +83,7 @@ in {
     r2modman
     unstable.osu-lazer-bin
     unstable.google-cloud-sdk
+    unstable.paseo
+    unstable.paseo-desktop
   ];
 }
