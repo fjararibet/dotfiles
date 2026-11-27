@@ -1,6 +1,22 @@
 { config, inputs, pkgs, paths, ... }:
 let
   profileBin = "${config.home.homeDirectory}/.nix-profile/bin";
+  # r2modman calls steam -applaunch synchronously from Electron's main process.
+  r2modmanSteam = pkgs.writeShellScriptBin "steam" ''
+    if [[ "$1" == -applaunch ]]; then
+      /run/current-system/sw/bin/steam "$@" </dev/null >/dev/null 2>&1 &
+      exit 0
+    fi
+    exec /run/current-system/sw/bin/steam "$@"
+  '';
+  r2modman = pkgs.symlinkJoin {
+    name = "r2modman-huala";
+    paths = [ pkgs.r2modman ];
+    nativeBuildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram $out/bin/r2modman --prefix PATH : ${r2modmanSteam}/bin
+    '';
+  };
   zapzapWayland = pkgs.symlinkJoin {
     name = "zapzap-wayland";
     paths = [ pkgs.zapzap ];
